@@ -1,0 +1,108 @@
+Project Ideas
+
+## Category 1: Time & Memory-Based Navigation
+
+### 1. "The Hong Kong Pathfinder's Time Machine"
+**Core Concept:** Interactive historical narrative exploring a single footbridge across different eras.
+
+**Key Features:**
+- Choose-your-own-adventure through time periods
+- Multimedia historical comparisons
+- Focus on human stories rather than efficient routing
+
+**Technical Approach:**
+- Pygame/TKinter interactive storybook
+- State management for timeline navigation
+- Seamless multimedia asset switching
+
+**Why It's Compelling:** Transforms navigation into temporal storytelling, connecting users to urban history.
+
+---
+
+## Category 2: Sensory & Poetic Navigation
+
+### 2. "Echoes of the Alleyway" - Sonic Navigation Poem
+**Core Concept:** Navigation expressed through algorithmically generated poetry and soundscapes.
+
+**Key Features:**
+- Audio-based guidance system
+- Poetic route descriptions
+- Emotional and sensory wayfinding
+
+**Technical Approach:**
+- Pathfinding algorithm (A*) for route calculation
+- Database of location-tagged sounds and descriptors
+- Text generation for poetic instructions
+
+**Why It's Compelling:** Replaces clinical GPS with artistic, sensory-rich urban exploration.
+
+---
+
+## Category 3: Anti-Navigation & Psychogeography
+
+### 3. "The Psychogeographical Drift Generator"
+**Core Concept:** Intentional disorientation through algorithmic dérive instructions.
+
+**Key Features:**
+- Anti-efficient navigation commands
+- Context-aware instructions (weather, time)
+- User-generated multimedia documentation
+
+**Technical Approach:**
+- Grammar-based text generation
+- Optional API integration for context
+- Open-ended instruction system
+
+**Why It's Compelling:** Uses systematic logic to break from systematic thinking, embracing urban discovery.
+
+---
+
+## Category 4: Cognitive & Memory-Based Navigation
+
+### 4. "The Mnemonic Pathfinder"
+**Core Concept:** Bizarre, memorable stories as navigation aids instead of maps.
+
+**Key Features:**
+- Surreal narrative generation
+- Memory palace construction
+- AI-enhanced storytelling
+
+**Technical Approach:**
+- LLM API integration (OpenAI)
+- Landmark and turn extraction
+- Text-to-speech narration
+
+**Why It's Compelling:** Stores routes in human memory through absurdist storytelling rather than digital maps.
+
+---
+
+## Category 5: Visual & Conceptual Navigation
+
+### 5. "The Erasure Map"
+**Core Concept:** Navigation as visual clarification through progressive information removal.
+
+**Key Features:**
+- Path revelation through erasure
+- Urban visual noise reduction
+- Abstract representation of wayfinding
+
+**Technical Approach:**
+- Pillow library for image processing
+- Transparency layer compositing
+- Progressive reveal algorithms
+
+**Why It's Compelling:** Frames navigation as an act of creative destruction and urban clarity.
+
+---
+
+## Common Threads Across All Ideas:
+
+**Novelty Factor:** Each redefines what "navigation" means—temporal, sensory, anti-navigation, cognitive, or visual.
+
+**Technical Sophistication:** Manage complex relationships between data, narrative, and user interaction.
+
+**Multimedia Integration:** Seamlessly blend images, audio, text, and interactive elements.
+
+**Python Viability:** All can be implemented with Python libraries while pushing creative boundaries.
+
+**Hong Kong Specificity:** Leverage the city's unique urban fabric as both subject and medium.
