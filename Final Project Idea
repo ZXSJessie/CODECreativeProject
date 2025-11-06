@@ -1,0 +1,77 @@
+# Group Project Ideas
+
+# **Project Brief: “Sleep, Scan, Repeat: The Ultimate Nap Quest”**
+
+### **Project Overview**
+
+Are you a nap enthusiast? A snooze connoisseur? Or just someone who’s mastered the art of sleeping in the weirdest corners of campus? Fear not, weary scholar—we’ve got you covered.
+
+Our project is a **multimedia, Python-powered sleep rating system** designed to track, rate, and gamify sleeping habits across campus. It combines **personality quizzes**, **interactive QR codes**, **randomly cryptic quotes**, and **achievements for the elite nappers**. Basically, it’s like Pokémon, but instead of catching monsters, you catch Zs.
+
+---
+
+### **Why We’re Building This**
+
+- **Purpose:** Art + design + chaos. We want to make sleep exploration a **fun, interactive experience** for stressed college students.
+- **Measure of Success:**
+    - Students actively scanning QR codes instead of just scrolling Instagram in bed.
+    - Number of “sleep achievements” unlocked.
+    - Amount of mysterious quotes that spark existential dread or laughter.
+- **Goals to Achieve:**
+    - Create a smooth, functional Python system for ratings and quizzes.
+    - Make QR codes that are easy to scan and visually fun.
+    - Incorporate multimedia elements: images, audio (snore sounds optional), video clips (like “sleepy campus vibes”), and narrative commentary.
+- **Critical Parts:**
+    1. Sleep rating system for different campus areas.
+    2. QR codes strategically placed across campus for reviews.
+    3. Achievements system for rare sleep styles or “all-area conquerors.”
+    4. MBTI-style sleep quiz to classify your snooze personality.
+    5. Randomly generated mysterious quotes that make you question life… or nap longer.
+    
+
+---
+
+### **It’s Not Just About the Code**
+
+We want to **push boundaries**:
+
+- Experiment with interactive multimedia.
+- Learn from bugs (yes, we know there will be crashes when too many students scan at once).
+- Make something **both elegant and ridiculous**, meaningful yet functional—basically the perfect embodiment of college life.
+
+---
+
+### **Group Project Rubric Fit**
+
+- **Creative Idea (25%)**
+    - Novelty: Who else is rating their sleep habits with achievements?
+    - Value: Helps students find new nap spots, while also feeding their existential curiosity.
+- **Code (50%)**
+    - Python-heavy, handles QR code scanning, ratings, and achievements elegantly.
+- **Execution (25%)**
+    - Iterative development with weekly updates.
+    - Incorporates multimedia elements and polished UX.
+
+---
+
+### **Extra Fun Factor**
+
+- Hidden “secret napping spots” that unlock mysterious achievements.
+- Random QR codes that make students laugh, think, or reconsider their life choices.
+- Optional: Leaderboard for “Sleep Legends of Campus” (because bragging rights matter).
+
+---
+
+**Tagline:** *Scan. Rate. Nap. Repeat.* 💤
+
+---
+
+Hard mattress or soft?
+
+do you use blankets?
+
+deep sleep or light sleep?
+
+temperature
+
+percentage of people who does xyz the same as you do
