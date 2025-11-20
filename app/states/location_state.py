@@ -18,6 +18,7 @@ class Location(TypedDict):
     name: str
     description: str
     icon: str
+    model_id: str
 
 
 class LocationState(rx.State):
@@ -27,24 +28,28 @@ class LocationState(rx.State):
             "name": "Library Alcove 3F",
             "description": "A forgotten corner on the third floor, where the scent of old books lulls you to sleep. Occasional page-turning sounds.",
             "icon": "book",
+            "model_id": "b26a267e5a2a4779a0c55814ded990e9",
         },
         {
             "id": "union-sofa",
             "name": "Student Union Sofa",
             "description": "A surprisingly comfy sofa near the perpetually-broken vending machine. High traffic, but a strategic nap spot.",
             "icon": "couch",
+            "model_id": "b26a267e5a2a4779a0c55814ded990e9",
         },
         {
             "id": "quad-tree",
             "name": "The Great Oak on the Quad",
             "description": "Shade-abundant and grass-cushioned. Risk of frisbees and overly-enthusiastic squirrels.",
             "icon": "tree-pine",
+            "model_id": "b26a267e5a2a4779a0c55814ded990e9",
         },
         {
             "id": "basement-lounge",
             "name": "Arts Building Basement Lounge",
             "description": "Eerily quiet and perpetually cool. The hum of the building's entrails is your only companion.",
             "icon": "warehouse",
+            "model_id": "b26a267e5a2a4779a0c55814ded990e9",
         },
     ]
     ratings: dict[str, list[Rating]] = {}

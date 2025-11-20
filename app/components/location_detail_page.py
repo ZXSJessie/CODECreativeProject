@@ -1,6 +1,7 @@
 import reflex as rx
 from app.states.quiz_state import QuizState
 from app.states.location_state import LocationState
+from app.components.sketchfab import sketchfab_model
 
 
 def rating_slider(category: str, label: str, emoji: str) -> rx.Component:
@@ -49,16 +50,18 @@ def location_detail_page() -> rx.Component:
                             LocationState.selected_location["description"],
                             class_name="text-gray-300 leading-relaxed mb-6 text-sm md:text-base",
                         ),
+                        # 3D Viewer
                         rx.el.div(
                             rx.el.h3(
-                                "Scan to Check In",
-                                class_name="text-lg text-center text-[#ff00ff] mb-2",
+                                "3D Preview",
+                                class_name="text-lg text-center text-[#00d4ff] mb-4",
                             ),
-                            rx.el.image(
-                                src=LocationState.selected_location_qr_code,
-                                class_name="w-36 h-36 md:w-48 md:h-48 mx-auto p-2 bg-[#0a0a0f] pixel-border-magenta",
+                            sketchfab_model(
+                                model_id=LocationState.selected_location["model_id"],
+                                height="300px",
+                                title=LocationState.selected_location["name"]
                             ),
-                            class_name="p-4 bg-[#1a1a2e]",
+                            class_name="mb-6 p-4 bg-[#1a1a2e] pixel-border-cyan",
                         ),
                         class_name="w-full md:w-1/2 md:pr-8",
                     ),
