@@ -18,12 +18,12 @@ def sketchfab_model(model_id: str, height: str = "360px", title: Optional[str] =
                 <div style="width:100%; position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
                   <iframe
                     title="{{title.to(str)}}"
-                    src="https://sketchfab.com/models/{model_id}/embed"
+                    src="https://sketchfab.com/models/{model_id}/embed?autostart=1&transparent=1&ui_theme=dark&ui_infos=0&ui_controls=0&ui_stop=0"
                     frameborder="0"
                     allow="autoplay; fullscreen; xr-spatial-tracking"
                     allowfullscreen
                     loading="lazy"
-                    style="position:absolute; top:0; left:0; width:100%; height:100%; background: transparent; border: none;">
+                    style="position:absolute; top:0; left:0; width:100%; height:100%; background: transparent;">
                   </iframe>
                 </div>
                 """
@@ -52,12 +52,12 @@ def sketchfab_model(model_id: str, height: str = "360px", title: Optional[str] =
             <div style="width:100%; position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
               <iframe
                 title="{title_attr}"
-                src="https://sketchfab.com/models/{model_id}/embed"
+                src="https://sketchfab.com/models/{model_id}/embed?autostart=1&transparent=1&ui_theme=dark&ui_infos=0&ui_controls=0&ui_stop=0"
                 frameborder="0"
                 allow="autoplay; fullscreen; xr-spatial-tracking"
                 allowfullscreen
                 loading="lazy"
-                style="position:absolute; top:0; left:0; width:100%; height:100%;">
+                style="position:absolute; top:0; left:0; width:100%; height:100%; background: transparent;">
               </iframe>
             </div>
             """
