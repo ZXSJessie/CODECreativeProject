@@ -36,6 +36,30 @@ class UserState(rx.State):
             "description": "Complete the personality quiz and rate every single location. A true master of rest.",
             "icon": "shield-check",
         },
+        "living-on-the-edge": {
+            "id": "living-on-the-edge",
+            "title": "Living on the Edge",
+            "description": "Rate a location with maximum Danger level. You laugh in the face of peril.",
+            "icon": "skull",
+        },
+        "zen-master": {
+            "id": "zen-master",
+            "title": "Zen Master",
+            "description": "Find a spot with perfect Quietness. Inner peace achieved.",
+            "icon": "flower",
+        },
+        "social-sleeper": {
+            "id": "social-sleeper",
+            "title": "Social Sleeper",
+            "description": "Rate a spot that is loud but has immaculate vibes. Who needs quiet?",
+            "icon": "users",
+        },
+        "night-owl": {
+            "id": "night-owl",
+            "title": "The Night Owl",
+            "description": "Access the app during the witching hours (Late Night).",
+            "icon": "moon",
+        }
     }
     unlocked_achievements: set[str] = set()
     quotes: list[str] = [

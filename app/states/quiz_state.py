@@ -29,7 +29,7 @@ class Personality(TypedDict):
 
 class QuizState(rx.State):
     current_page: Literal[
-        "home", "quiz", "results", "locations", "location_detail", "profile"
+        "home", "quiz", "results", "locations", "location_detail", "profile", "achievements"
     ] = "home"
     mobile_menu_open: bool = False
     current_question_index: int = 0

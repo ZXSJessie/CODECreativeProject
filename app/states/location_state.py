@@ -87,6 +87,17 @@ class LocationState(rx.State):
             user_state = await self.get_state(UserState)
             if all((v == 5 for v in self.new_rating.values())):
                 yield user_state.unlock_achievement("5-star-sleeper")
+            
+            # New Achievements Logic
+            if self.new_rating["danger"] == 5:
+                yield user_state.unlock_achievement("living-on-the-edge")
+            
+            if self.new_rating["quietness"] == 5:
+                yield user_state.unlock_achievement("zen-master")
+            
+            if self.new_rating["quietness"] == 1 and self.new_rating["vibe_check"] == 5:
+                yield user_state.unlock_achievement("social-sleeper")
+
             if len(self.ratings) >= 3:
                 yield user_state.unlock_achievement("secret-spot-explorer")
             if len(self.ratings) == len(self.locations):
