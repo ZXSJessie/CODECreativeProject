@@ -12,7 +12,7 @@ class MapState(rx.State):
     # Building to floor mapping
     building_floors: dict[str, list[str]] = {
         "library": ["G", "1"],
-        "jcit": ["P", "11"]
+        "jcit": ["11", "P"]
     }
     
     # Location to building/floor mapping
@@ -23,10 +23,10 @@ class MapState(rx.State):
         "the-urban-zen": {"building": "outdoor", "floor": "outdoor", "icon": "middle", "x": "45%", "y": "55%"},
         "the-shade-throne": {"building": "outdoor", "floor": "outdoor", "icon": "close", "x": "50%", "y": "48%"},
         "the-stonecold-zen": {"building": "outdoor", "floor": "outdoor", "icon": "far", "x": "40%", "y": "60%"},
-        "the-bobafueled-snooze": {"building": "jcit", "floor": "11", "icon": "close", "x": "30%", "y": "50%"},
-        "the-stairwell-stealth": {"building": "jcit", "floor": "P", "icon": "far", "x": "45%", "y": "65%"},
-        "the-curtaincall-nap": {"building": "jcit", "floor": "11", "icon": "middle", "x": "55%", "y": "40%"},
-        "the-modular-dream": {"building": "jcit", "floor": "11", "icon": "middle", "x": "65%", "y": "35%"},
+        "the-bobafueled-snooze": {"building": "jcit", "floor": "P", "icon": "close", "x": "72%", "y": "28%"},
+        "the-stairwell-stealth": {"building": "jcit", "floor": "11", "icon": "far", "x": "48%", "y": "35%"},
+        "the-curtaincall-nap": {"building": "jcit", "floor": "11", "icon": "middle", "x": "60%", "y": "45%"},
+        "the-modular-dream": {"building": "jcit", "floor": "11", "icon": "middle", "x": "53%", "y": "60%"},
     }
     
     @rx.event
@@ -112,32 +112,32 @@ class MapState(rx.State):
                 "location": "JCIT Milk Tea Shop",
                 "name": "The Boba-Fueled Snooze Booth",
                 "icon_type": "close",
-                "x": "30%",
-                "y": "50%"
+                "x": "72%",
+                "y": "28%"
             },
             {
                 "id": "the-stairwell-stealth",
                 "location": "JCIT Stairwell",
                 "name": "The Stairwell Stealth Suite",
                 "icon_type": "far",
-                "x": "45%",
-                "y": "65%"
+                "x": "48%",
+                "y": "35%"
             },
             {
                 "id": "the-curtaincall-nap",
                 "location": "JCIT Study Room Partition Area",
                 "name": "The Curtain-Call Nap Studio",
                 "icon_type": "middle",
-                "x": "55%",
-                "y": "40%"
+                "x": "60%",
+                "y": "45%"
             },
             {
                 "id": "the-modular-dream",
                 "location": "JCIT Study Room Sofa",
                 "name": "The Modular Dream Fort",
                 "icon_type": "middle",
-                "x": "65%",
-                "y": "35%"
+                "x": "53%",
+                "y": "60%"
             },
         ]
         
@@ -200,10 +200,32 @@ class MapState(rx.State):
     def building_display_name(self) -> str:
         """Get display name for building"""
         if self.selected_building == "library":
-            return "图书馆"  # Library in Chinese as shown in image
+            return "Pao Yue-kong Library"
         elif self.selected_building == "jcit":
-            return "图书馆"  # Should be JCIT but using the text from image
+            return "Jockey Club Innovation Tower"
         return ""
+    
+    @rx.var
+    def floor_display_name(self) -> str:
+        """Get display name for current floor"""
+        if self.selected_building == "library":
+            if self.current_floor == "G":
+                return "Ground Floor"
+            elif self.current_floor == "1":
+                return "1st Floor"
+        elif self.selected_building == "jcit":
+            if self.current_floor == "P":
+                return "P Floor"
+            elif self.current_floor == "11":
+                return "11th Floor"
+        return self.current_floor
+    
+    @rx.var
+    def current_map_image(self) -> str:
+        """Get current map image - floor map if building selected, otherwise campus map"""
+        if self.selected_building:
+            return self.floor_map_image
+        return "/map images/POLYU MAP.png"
 
 
 def floor_location_icon(location: rx.Var[dict]) -> rx.Component:
@@ -252,94 +274,6 @@ def floor_location_icon(location: rx.Var[dict]) -> rx.Component:
             "left": location.x,
             "transform": "translate(-50%, -100%)"  # Center the icon horizontally and position bottom at coordinate
         }
-    )
-
-
-def floor_detail_view() -> rx.Component:
-    """Detailed floor map view with navigation"""
-    return rx.el.div(
-        # Overlay background
-        rx.el.div(
-            class_name="fixed inset-0 bg-black/80 z-40",
-            on_click=MapState.close_floor_view
-        ),
-        
-        # Floor map container
-        rx.el.div(
-            # Header
-            rx.el.div(
-                rx.el.div(
-                    rx.el.h2(
-                        MapState.building_display_name, MapState.current_floor, "层",
-                        class_name="text-xl font-bold text-[#00ff9f] tracking-wider"
-                    ),
-                    class_name="flex-1"
-                ),
-                rx.el.button(
-                    rx.image(
-                        src="/map images/icon/close.png",
-                        class_name="w-6 h-6"
-                    ),
-                    on_click=MapState.close_floor_view,
-                    class_name="p-2 hover:bg-gray-800 rounded transition-colors"
-                ),
-                class_name="flex items-center justify-between mb-4 px-6 pt-6"
-            ),
-            
-            # Map and navigation container
-            rx.el.div(
-                # Floor map
-                rx.el.div(
-                    rx.image(
-                        src=MapState.floor_map_image,
-                        class_name="w-full h-auto"
-                    ),
-                    # Location icons overlaid on map
-                    rx.foreach(
-                        MapState.current_floor_locations,
-                        floor_location_icon
-                    ),
-                    class_name="relative flex-1"
-                ),
-                
-                # Floor navigation arrows
-                rx.el.div(
-                    # Up arrow
-                    rx.cond(
-                        MapState.can_go_up,
-                        rx.el.button(
-                            rx.image(
-                                src="/map images/icon/icon-up.png",
-                                class_name="w-12 h-12"
-                            ),
-                            on_click=MapState.change_floor("up"),
-                            class_name="p-2 hover:opacity-80 transition-opacity"
-                        ),
-                        rx.el.div(class_name="w-12 h-12")
-                    ),
-                    # Down arrow
-                    rx.cond(
-                        MapState.can_go_down,
-                        rx.el.button(
-                            rx.image(
-                                src="/map images/icon/icon-down.png",
-                                class_name="w-12 h-12"
-                            ),
-                            on_click=MapState.change_floor("down"),
-                            class_name="p-2 hover:opacity-80 transition-opacity"
-                        ),
-                        rx.el.div(class_name="w-12 h-12")
-                    ),
-                    class_name="flex flex-col items-center justify-center gap-4 px-4"
-                ),
-                
-                class_name="flex items-center gap-4 px-6 pb-6"
-            ),
-            
-            class_name="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#0a0a0f] border-2 border-[#00ff9f] max-w-6xl w-full max-h-[90vh] overflow-auto z-50 shadow-2xl"
-        ),
-        
-        class_name=rx.cond(MapState.show_floor_detail, "", "hidden")
     )
 
 
@@ -455,36 +389,105 @@ def interactive_campus_map() -> rx.Component:
     return rx.el.div(
         # Map container
         rx.el.div(
-            rx.el.h3(
-                "[ CAMPUS MAP ]",
-                class_name="text-[#00ff9f] font-bold mb-3 text-center tracking-widest text-sm"
-            ),
+            # Header with title and back button
             rx.el.div(
-                # Campus map image
-                rx.image(
-                    src="/map images/POLYU MAP.png",
-                    class_name="w-full h-auto"
+                rx.cond(
+                    MapState.selected_building != "",
+                    # Floor view header
+                    rx.el.div(
+                        rx.el.button(
+                            rx.icon(tag="arrow-left", size=20, color="#00ff9f"),
+                            rx.text("Back to Campus Map", class_name="ml-2 text-[#00ff9f]"),
+                            on_click=MapState.close_floor_view,
+                            class_name="flex items-center gap-2 px-3 py-2 hover:bg-gray-800 rounded transition-colors mb-2"
+                        ),
+                        rx.el.h3(
+                            f"[ ", MapState.building_display_name, " - ", MapState.floor_display_name, " ]",
+                            class_name="text-[#00ff9f] font-bold mb-3 text-center tracking-widest text-sm"
+                        ),
+                        class_name="w-full"
+                    ),
+                    # Campus map header
+                    rx.el.h3(
+                        "[ CAMPUS MAP ]",
+                        class_name="text-[#00ff9f] font-bold mb-3 text-center tracking-widest text-sm"
+                    )
+                ),
+                class_name="w-full"
+            ),
+            
+            # Main map display area
+            rx.el.div(
+                # Map image (campus or floor)
+                rx.el.div(
+                    rx.image(
+                        src=MapState.current_map_image,
+                        class_name="w-full h-auto"
+                    ),
+                    
+                    # Campus map icons (only show when no building selected)
+                    rx.cond(
+                        MapState.selected_building == "",
+                        rx.fragment(
+                            # Building icons
+                            building_icon_on_main_map("library", "47%", "76%"),
+                            building_icon_on_main_map("jcit", "48%", "28%"),
+                            
+                            # Outdoor locations
+                            outdoor_location_icon("the-urban-zen", "The Urban Zen Bench", "60%", "59%", "middle"),
+                            outdoor_location_icon("the-shade-throne", "The Shade Throne", "58%", "51%", "close"),
+                            outdoor_location_icon("the-stonecold-zen", "The Stone-Cold Zen Zone", "57%", "62%", "far"),
+                        ),
+                        rx.fragment()
+                    ),
+                    
+                    # Floor location icons (only show when building selected)
+                    rx.cond(
+                        MapState.selected_building != "",
+                        rx.foreach(
+                            MapState.current_floor_locations,
+                            floor_location_icon
+                        ),
+                        rx.fragment()
+                    ),
+                    
+                    class_name="relative w-full"
                 ),
                 
-                # Building icons overlay - positions based on Main map reference images
-                # Pao Yue-kong Library (right side of campus)
-                building_icon_on_main_map("library", "68%", "52%"),
+                # Floor navigation arrows (only show when building selected and has multiple floors)
+                rx.cond(
+                    MapState.selected_building != "",
+                    rx.el.div(
+                        # Up arrow
+                        rx.cond(
+                            MapState.can_go_up,
+                            rx.el.button(
+                                rx.icon(tag="chevron-up", size=32, color="#00ff9f"),
+                                on_click=MapState.change_floor("up"),
+                                class_name="p-3 hover:bg-gray-800 rounded transition-colors"
+                            ),
+                            rx.el.div(class_name="w-12 h-12")
+                        ),
+                        # Down arrow
+                        rx.cond(
+                            MapState.can_go_down,
+                            rx.el.button(
+                                rx.icon(tag="chevron-down", size=32, color="#00ff9f"),
+                                on_click=MapState.change_floor("down"),
+                                class_name="p-3 hover:bg-gray-800 rounded transition-colors"
+                            ),
+                            rx.el.div(class_name="w-12 h-12")
+                        ),
+                        class_name="flex flex-col items-center justify-center gap-2 px-4 absolute right-4 top-1/2 transform -translate-y-1/2 z-50 bg-[#0a0a0f]/90 border-2 border-[#00ff9f] rounded p-2"
+                    ),
+                    rx.fragment()
+                ),
                 
-                # Jockey Club Innovation Tower (left side of campus)
-                building_icon_on_main_map("jcit", "28%", "23%"),
-                
-                # Outdoor locations - direct location icons
-                outdoor_location_icon("the-urban-zen", "The Urban Zen Bench", "45%", "55%", "middle"),
-                outdoor_location_icon("the-shade-throne", "The Shade Throne", "50%", "48%", "close"),
-                outdoor_location_icon("the-stonecold-zen", "The Stone-Cold Zen Zone", "40%", "60%", "far"),
-                
-                class_name="relative w-full"
+                class_name="relative"
             ),
+            
             class_name="w-full border-2 border-[#00ff9f] bg-[#0a0a0f] p-4"
         ),
-        
-        # Floor detail modal
-        floor_detail_view(),
         
         class_name="w-full mb-8"
     )
