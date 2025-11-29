@@ -59,9 +59,38 @@ class UserState(rx.State):
             "title": "The Night Owl",
             "description": "Access the app during the witching hours (Late Night).",
             "icon": "moon",
+        },
+        "secret-boss-defeated": {
+            "id": "secret-boss-defeated",
+            "title": "Secret Boss Defeated",
+            "description": "Discover the hidden nap spot. You found the easter egg.",
+            "icon": "ghost",
         }
     }
     unlocked_achievements: set[str] = set()
+    gamertag: str = ""
+    xp: int = 120  # Mock data for demo
+
+    @rx.var
+    def level(self) -> int:
+        return (self.xp // 500) + 1
+
+    @rx.var
+    def xp_to_next_level(self) -> int:
+        return 500 - (self.xp % 500)
+
+    @rx.var
+    def xp_progress(self) -> int:
+        return int(((self.xp % 500) / 500) * 100)
+
+    @rx.event
+    def set_gamertag(self, gamertag: str):
+        self.gamertag = gamertag
+
+    @rx.event
+    def save_gamertag(self):
+        return rx.toast(f"Gamertag saved: {self.gamertag}", duration=3000)
+
     quotes: list[str] = [
         "To sleep, perchance to dream... ay, there's the rub... for in that sleep of death what dreams may come? Or, y'know, just drool on your textbook.",
         "The best bridge between despair and hope is a good night's sleep. Or a really, really good nap in the library.",
@@ -98,6 +127,24 @@ class UserState(rx.State):
     @rx.var
     def random_quote(self) -> str:
         return random.choice(self.quotes)
+
+    @rx.var
+    def total_achievements_count(self) -> int:
+        return len(self.achievements)
+
+    @rx.var
+    def unlocked_achievements_count(self) -> int:
+        return len(self.unlocked_achievements)
+
+    @rx.var
+    def completion_percentage(self) -> int:
+        if not self.achievements:
+            return 0
+        return int((len(self.unlocked_achievements) / len(self.achievements)) * 100)
+
+    @rx.var
+    def remaining_achievements_count(self) -> int:
+        return len(self.achievements) - len(self.unlocked_achievements)
 
     @rx.var
     def unlocked_achievements_list(self) -> list[Achievement]:

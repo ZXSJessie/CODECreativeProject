@@ -4,111 +4,147 @@ from app.states.user_state import UserState
 from app.states.location_state import LocationState
 
 
-def answer_stat_card(question: dict, answer_key: str) -> rx.Component:
-    return rx.el.div(
-        rx.el.p(f"Q: {question['text']}", class_name="text-sm text-gray-400 mb-2"),
-        rx.el.p(
-            f"You chose: {question['choices'][answer_key]['title']}",
-            class_name="text-md text-[#00d4ff] mb-2",
-        ),
-        rx.el.p(
-            f"{QuizState.user_answer_stats[question['id']]}% of nappers agree with you.",
-            class_name="text-sm text-[#00ff9f]",
-        ),
-        class_name="p-4 bg-[#1a1a2e] pixel-border-cyan",
+def unlocked_location_tag(spot_id: str) -> rx.Component:
+    # We need to find the location name from the ID
+    location_name = rx.match(
+        spot_id,
+        ("cdm-sofa-paradise", "Study room on the G floor of the library"),
+        ("ldp-lecture-phantom", "The corridor of bookshelves on the G floor of the library"),
+        ("cdm-ergonomic-island", "Sofa on the G floor of the library"),
+        ("pms-urban-sleeper", "Outdoor wooden chair"),
+        ("pms-umbrella-universe", "Outdoor dining chair"),
+        ("pms-stone-zen", "Outdoor stone chair"),
+        ("pnp-milk-tea-dreams", "JCIT Milk Tea Shop"),
+        ("ldp-stealth-stairs", "JCIT Stairwell"),
+        ("cdm-curtain-instance", "JCIT Study Room Partition Area"),
+        ("cdm-modular-dreams", "JCIT Study Room Sofa"),
+        "Unknown Location"
     )
-
-
-def recommended_location_card(location: dict) -> rx.Component:
+    
     return rx.el.div(
-        rx.el.div(
-            rx.icon(location["icon"], class_name="h-8 w-8 text-[#00d4ff] mr-4"),
-            rx.el.div(
-                rx.el.h3(
-                    location["name"], class_name="text-lg text-left text-[#00ff9f]"
-                ),
-                rx.el.p(
-                    location["description"],
-                    class_name="text-xs text-left text-gray-400 mt-1",
-                ),
-            ),
-            class_name="flex items-center",
-        ),
-        rx.el.button(
-            "Visit This Spot",
-            rx.icon("arrow_right", class_name="ml-2 h-4 w-4"),
-            on_click=lambda: LocationState.select_location(location["id"]),
-            class_name="mt-4 w-full flex items-center justify-center text-sm bg-transparent text-[#ff00ff] font-bold py-2 px-4 pixel-border-magenta hover:bg-[#ff00ff]/20 transition-all duration-300",
-        ),
-        class_name="p-4 bg-[#1a1a2e] pixel-border-magenta flex flex-col justify-between",
+        rx.icon("map-pin", size=12, class_name="mr-1"),
+        rx.text(location_name, class_name="text-[10px] font-bold"),
+        class_name="flex items-center px-2 py-1 border border-[#bd00ff] text-[#bd00ff] bg-[#bd00ff]/10 mr-2 mb-2"
     )
 
 
 def results_page() -> rx.Component:
-    def get_location_by_id(spot_id: str):
-        return rx.foreach(
-            LocationState.locations,
-            lambda loc: rx.cond(
-                loc["id"] == spot_id, recommended_location_card(loc), rx.fragment()
-            ),
-        )
-
     return rx.el.div(
         rx.el.div(
+            # Header Box
             rx.el.div(
-                rx.icon(
-                    QuizState.personality_details["icon"],
-                    class_name="h-12 w-12 md:h-16 md:w-16 text-[#ff00ff] mb-4",
-                ),
-                rx.el.h2(
-                    QuizState.personality_details["title"],
-                    class_name="text-2xl md:text-4xl text-[#ff00ff] text-shadow-neon mb-4 text-center",
-                ),
-                rx.el.p(
-                    QuizState.personality_details["description"],
-                    class_name="text-center text-gray-300 leading-relaxed mb-8 text-sm md:text-base",
-                ),
-                class_name="flex flex-col items-center justify-center p-4 md:p-8 mb-4 md:mb-8",
-            ),
-            rx.el.div(
-                rx.el.h3(
-                    "Recommended Nap Spots",
-                    class_name="text-xl md:text-2xl text-[#00ff9f] text-center mb-6",
-                ),
+                # Top decorative squares
+                rx.el.div(class_name="absolute top-0 left-0 w-2 h-2 bg-[#00ff9f]"),
+                rx.el.div(class_name="absolute bottom-0 left-0 w-2 h-2 bg-[#ffd700]"),
+                
                 rx.el.div(
-                    rx.foreach(
-                        QuizState.personality_details["spots"], get_location_by_id
+                    rx.icon(
+                        QuizState.personality_details["icon"],
+                        class_name="h-16 w-16 text-[#ff0055] mb-4 animate-bounce-slow",
                     ),
-                    class_name="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8",
+                    rx.text("[ CHARACTER ANALYSIS COMPLETE ]", class_name="text-xs text-gray-400 font-mono mb-2 tracking-widest"),
+                    rx.el.h2(
+                        QuizState.personality_details["title"],
+                        class_name="text-3xl md:text-4xl text-[#00ff9f] font-bold text-shadow-neon-green mb-4 text-center tracking-wider uppercase",
+                    ),
+                    rx.el.div(
+                        rx.el.span("■", class_name="text-[#bd00ff] text-xs mr-2"),
+                        rx.text("RANK: S-TIER NAPPER", class_name="text-sm text-[#bd00ff] font-bold tracking-widest"),
+                        rx.el.span("■", class_name="text-[#bd00ff] text-xs ml-2"),
+                        class_name="flex items-center justify-center mb-2"
+                    ),
+                    class_name="flex flex-col items-center justify-center"
                 ),
+                class_name="w-full border-2 border-[#00ff9f] p-8 bg-[#00ff9f]/5 mb-6 relative max-w-2xl mx-auto"
             ),
+
+            # Details Box
             rx.el.div(
-                rx.el.h3(
-                    "Your Sleep Profile",
-                    class_name="text-xl md:text-2xl text-[#00ff9f] text-center mb-6",
-                ),
                 rx.el.div(
-                    rx.foreach(
-                        QuizState.questions,
-                        lambda question, index: answer_stat_card(
-                            question, QuizState.answers[index]
+                    rx.icon("zap", size=16, class_name="text-[#ffd700] mr-2 mt-1"),
+                    rx.el.div(
+                        rx.text(
+                            f"Class: {QuizState.personality_details['title']} | Stats: REQUIREMENTS +MAX, SATISFACTION +100 WHEN MET",
+                            class_name="text-xs text-gray-300 font-mono mb-2"
                         ),
+                        rx.text(
+                            f"Special Ability: \"Perfect Setup\" - {QuizState.personality_details['description']}",
+                            class_name="text-xs text-gray-400 font-mono mb-2 leading-relaxed"
+                        ),
+                        rx.text(
+                            "Weakness: Everything else.",
+                            class_name="text-xs text-gray-500 font-mono"
+                        ),
+                        class_name="flex flex-col"
                     ),
-                    class_name="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8",
+                    class_name="flex items-start mb-6"
                 ),
+                
+                rx.el.div(
+                    rx.text(">> UNLOCKED LOCATIONS:", class_name="text-xs text-[#00ff9f] font-bold mb-3 tracking-wider"),
+                    rx.el.div(
+                        rx.foreach(
+                            QuizState.personality_details["spots"],
+                            unlocked_location_tag
+                        ),
+                        class_name="flex flex-wrap"
+                    ),
+                    class_name="border-t border-dashed border-gray-700 pt-4"
+                ),
+                
+                class_name="w-full border border-[#bd00ff] p-6 bg-[#1a1a2e] mb-6 max-w-2xl mx-auto"
             ),
-            rx.el.blockquote(
-                rx.el.p(
-                    f'"{UserState.random_quote}"',
-                    class_name="text-center text-gray-400 italic text-sm md:text-base leading-relaxed p-4 bg-[#1a1a2e] pixel-border-cyan",
-                )
+
+            # Action Buttons
+            rx.el.div(
+                rx.el.button(
+                    rx.icon("map-pin", size=14, class_name="mr-2 text-black"),
+                    "START QUEST",
+                    on_click=lambda: QuizState.set_page("locations"),
+                    class_name="flex-1 bg-[#00ff9f] text-black font-bold text-sm py-3 hover:bg-[#00ff9f]/80 transition-colors flex items-center justify-center mr-2"
+                ),
+                rx.el.button(
+                    rx.icon("rotate-ccw", size=14, class_name="mr-2 text-[#bd00ff]"),
+                    "RETRY",
+                    on_click=QuizState.reset_quiz,
+                    class_name="px-6 border border-[#bd00ff] text-[#bd00ff] font-bold text-sm py-3 hover:bg-[#bd00ff]/10 transition-colors flex items-center justify-center mr-2"
+                ),
+                rx.el.button(
+                    rx.icon("home", size=14, class_name="mr-2 text-[#bd00ff]"),
+                    "HOME",
+                    on_click=lambda: QuizState.set_page("home"),
+                    class_name="px-6 border border-[#bd00ff] text-[#bd00ff] font-bold text-sm py-3 hover:bg-[#bd00ff]/10 transition-colors flex items-center justify-center"
+                ),
+                class_name="flex w-full max-w-2xl mx-auto mb-8"
             ),
-            rx.el.button(
-                "Try Again",
-                on_click=QuizState.reset_quiz,
-                class_name="mt-8 md:mt-12 mx-auto flex items-center justify-center text-base md:text-lg bg-transparent text-white font-bold py-3 px-6 md:py-4 md:px-8 border-2 border-white hover:bg-white/20 hover:scale-105 transition-all duration-300",
+
+            # Achievement Notification
+            rx.el.div(
+                rx.el.div(
+                    rx.text("[ ACHIEVEMENT UNLOCKED ]", class_name="text-[10px] text-[#00ff9f] font-bold mb-1 tracking-widest text-center"),
+                    rx.el.div(
+                        rx.icon("trophy", size=16, class_name="text-[#ffd700] mr-2"),
+                        rx.text("\"First Steps\" - You've created your character!", class_name="text-xs font-bold text-[#ffd700]"),
+                        rx.icon("trophy", size=16, class_name="text-[#ffd700] ml-2"),
+                        class_name="flex items-center justify-center"
+                    ),
+                    class_name="w-full border border-[#ffd700] bg-[#ffd700]/10 p-3 mb-4 striped-bg" # striped-bg class would need css, but simple bg is fine
+                ),
+                
+                # XP Gained
+                rx.el.div(
+                    rx.text("XP GAINED:", class_name="text-xs font-bold text-[#00ff9f] mr-2"),
+                    rx.el.div(
+                        class_name="h-2 w-32 bg-gradient-to-r from-[#00ff9f] to-[#bd00ff] mr-2"
+                    ),
+                    rx.text("+500", class_name="text-xs font-bold text-white"),
+                    class_name="w-full border border-[#00ff9f] p-2 flex items-center justify-center bg-[#00ff9f]/5"
+                ),
+                
+                class_name="w-full max-w-2xl mx-auto"
             ),
-            class_name="w-full",
+
+            class_name="flex flex-col items-center w-full"
         ),
-        class_name="w-full p-4 md:p-8 pixel-border bg-[#1a1a2e] animate-fade-in",
+        class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono flex flex-col items-center justify-center animate-fade-in",
     )

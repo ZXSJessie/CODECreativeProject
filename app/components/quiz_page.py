@@ -7,56 +7,57 @@ def choice_button(
 ) -> rx.Component:
     return rx.el.button(
         rx.el.div(
-            rx.el.span(choice_data["emoji"], class_name="text-2xl mr-4"),
+            rx.el.span(choice_data["emoji"], class_name="text-xl mr-3"),
             rx.el.h3(
-                choice_data["title"], class_name="text-md md:text-lg text-[#00ff9f]"
+                choice_data["title"], class_name="text-sm md:text-base text-gray-200 font-mono text-left"
             ),
             class_name="flex items-center",
         ),
         on_click=lambda: QuizState.handle_answer(question_index, choice_key),
-        class_name="w-full p-4 md:p-6 bg-[#1a1a2e] pixel-border-cyan hover:bg-[#00d4ff]/20 hover:scale-105 transition-all duration-300 text-white flex justify-start items-center",
+        class_name="w-full p-4 bg-[#1a1a2e]/80 border border-gray-700 hover:border-[#00ff9f] hover:bg-[#00ff9f]/10 transition-all duration-200 flex justify-start items-center mb-3 group",
     )
 
 
 def quiz_question(question: dict, index: int) -> rx.Component:
     choices = question["choices"].entries()
-    layout = question.get("layout", "row")
     return rx.el.div(
+        # Question Header
         rx.el.div(
-            rx.el.p(question["part"], class_name="text-sm text-[#00d4ff] mb-2"),
-            rx.el.h2(
-                question["text"],
-                class_name="text-lg md:text-2xl text-center text-white",
-            ),
-            class_name="text-center mb-8",
+            rx.text(f">> {question['text']} <<", class_name="text-[#00ff9f] font-bold tracking-wider text-center mb-8 font-mono"),
+            class_name="w-full"
         ),
-        rx.match(
-            layout,
-            (
-                "row",
-                rx.el.div(
-                    choice_button(index, "A", question["choices"]["A"]),
-                    rx.el.p(
-                        "VS",
-                        class_name="text-2xl text-[#ff00ff] font-bold hidden md:block",
-                    ),
-                    choice_button(index, "B", question["choices"]["B"]),
-                    class_name="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8",
-                ),
+        
+        # Choices
+        rx.el.div(
+            rx.foreach(
+                choices,
+                lambda choice: choice_button(index, choice[0], choice[1]),
             ),
-            (
-                "grid",
-                rx.el.div(
-                    rx.foreach(
-                        choices,
-                        lambda choice: choice_button(index, choice[0], choice[1]),
-                    ),
-                    class_name="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6",
-                ),
-            ),
-            rx.el.div(),
+            class_name="flex flex-col w-full max-w-2xl mx-auto",
         ),
-        class_name="w-full animate-fade-in",
+        
+        # Navigation Buttons
+        rx.el.div(
+            rx.el.button(
+                "← BACK",
+                # Logic for back button could be added to QuizState if needed, for now it's visual or could reset
+                class_name="px-6 py-2 border border-[#ff00ff] text-[#ff00ff] font-bold text-xs hover:bg-[#ff00ff] hover:text-black transition-colors font-mono"
+            ),
+            rx.el.button(
+                "NEXT →",
+                # Next is handled by clicking an option in the current design, but we can keep this for visual consistency or future manual navigation
+                class_name="px-6 py-2 bg-[#00ff9f] text-black font-bold text-xs hover:bg-[#00ff9f]/80 transition-colors font-mono"
+            ),
+            class_name="flex justify-between w-full max-w-2xl mx-auto mt-8"
+        ),
+        
+        # Tip Footer
+        rx.el.div(
+            rx.text("[TIP: Choose wisely. Your build determines your playstyle.]", class_name="text-[10px] text-gray-500 font-mono text-center mt-8"),
+            class_name="w-full"
+        ),
+        
+        class_name="w-full animate-fade-in flex flex-col items-center",
     )
 
 
@@ -64,13 +65,9 @@ def progress_bar() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             style={"width": QuizState.progress_percent},
-            class_name="h-full bg-[#00ff9f] transition-all duration-500",
+            class_name="h-full bg-gradient-to-r from-[#00ff9f] to-[#bd00ff] transition-all duration-500",
         ),
-        rx.el.div(
-            QuizState.progress_percent,
-            class_name="absolute inset-0 flex items-center justify-center text-xs text-black font-bold",
-        ),
-        class_name="w-full h-6 bg-[#1a1a2e] pixel-border-magenta relative overflow-hidden",
+        class_name="w-full h-2 bg-[#1a1a2e] border-b border-gray-800 relative overflow-hidden mb-8",
     )
 
 
@@ -81,20 +78,48 @@ def quiz_page() -> rx.Component:
             rx.el.div(
                 rx.el.p(
                     "Calculating your sleep persona...",
-                    class_name="text-2xl text-center text-[#00ff9f]",
+                    class_name="text-2xl text-center text-[#00ff9f] font-mono animate-pulse",
                 ),
-                class_name="flex items-center justify-center h-64",
+                class_name="flex items-center justify-center h-screen bg-[#050510]",
             ),
             rx.el.div(
+                # Header
+                rx.el.div(
+                    rx.el.h1("CHARACTER CREATION", class_name="text-xl font-bold text-[#00ff9f] tracking-widest text-shadow-neon-green text-center mb-2"),
+                    rx.el.div(
+                        rx.text("STAGE ", class_name="text-xs text-[#bd00ff] font-mono"),
+                        rx.text(QuizState.current_question_index + 1, class_name="text-xs text-[#bd00ff] font-mono"),
+                        rx.text(" / ", class_name="text-xs text-gray-500 font-mono"),
+                        rx.text(QuizState.questions.length(), class_name="text-xs text-gray-500 font-mono"),
+                        class_name="flex justify-center gap-1 mb-2"
+                    ),
+                    # Progress Squares (Visual only for now, could be dynamic)
+                    rx.el.div(
+                        rx.foreach(
+                            QuizState.questions,
+                            lambda _, i: rx.el.div(
+                                class_name=rx.cond(
+                                    i <= QuizState.current_question_index,
+                                    "w-2 h-2 bg-[#00ff9f] mx-0.5",
+                                    "w-2 h-2 bg-[#1a1a2e] border border-gray-700 mx-0.5"
+                                )
+                            )
+                        ),
+                        class_name="flex justify-center mb-4"
+                    ),
+                    class_name="w-full border-2 border-[#00ff9f] p-4 bg-[#00ff9f]/5 mb-0 max-w-2xl mx-auto"
+                ),
+                
                 progress_bar(),
+                
                 rx.el.div(
                     quiz_question(
                         QuizState.current_question, QuizState.current_question_index
                     ),
-                    class_name="mt-8",
+                    class_name="w-full max-w-4xl mx-auto p-4 border border-[#bd00ff]/30 bg-[#1a1a2e]/50 min-h-[400px] flex flex-col justify-center",
                 ),
-                class_name="w-full",
+                class_name="w-full max-w-4xl mx-auto",
             ),
         ),
-        class_name="w-full animate-fade-in",
+        class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono flex flex-col items-center justify-center",
     )

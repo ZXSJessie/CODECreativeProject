@@ -1,112 +1,138 @@
 import reflex as rx
-from app.states.quiz_state import QuizState, Personality
+from app.states.quiz_state import QuizState
 from app.states.location_state import LocationState
-from app.states.user_state import UserState, Achievement
-
-
-def stat_card(title: str, value: rx.Var, icon: str, border_color: str) -> rx.Component:
-    return rx.el.div(
-        rx.el.div(
-            rx.icon(icon, class_name="h-8 w-8 text-[#00d4ff]"),
-            rx.el.p(title, class_name="text-sm text-gray-400"),
-            class_name="flex items-center gap-4 mb-2",
-        ),
-        rx.el.p(value, class_name="text-3xl font-bold text-white"),
-        class_name=f"p-6 bg-[#1a1a2e] {border_color}",
-    )
-
-
-def achievement_card(achievement: Achievement) -> rx.Component:
-    is_unlocked = UserState.unlocked_achievements.contains(achievement["id"])
-    return rx.el.div(
-        rx.icon(
-            achievement["icon"],
-            class_name=rx.cond(
-                is_unlocked, "h-10 w-10 text-[#ffc700]", "h-10 w-10 text-gray-600"
-            ),
-        ),
-        rx.el.div(
-            rx.el.h3(
-                achievement["title"],
-                class_name=rx.cond(
-                    is_unlocked, "text-lg text-[#00ff9f]", "text-lg text-gray-500"
-                ),
-            ),
-            rx.el.p(
-                achievement["description"],
-                class_name=rx.cond(
-                    is_unlocked,
-                    "text-xs text-gray-300 mt-1",
-                    "text-xs text-gray-600 mt-1",
-                ),
-            ),
-            class_name="ml-4",
-        ),
-        class_name=rx.cond(
-            is_unlocked,
-            "flex items-center p-4 bg-[#1a1a2e] pixel-border-cyan transition-all duration-300",
-            "flex items-center p-4 bg-[#0f0f18] border-2 border-dashed border-gray-700",
-        ),
-    )
+from app.states.user_state import UserState
 
 
 def profile_page() -> rx.Component:
     return rx.el.div(
         rx.el.div(
+            # Header
             rx.el.div(
-                rx.el.h2(
-                    "Your Napper Profile",
-                    class_name="text-3xl md:text-4xl text-[#00d4ff] text-shadow-neon text-center mb-4",
+                rx.el.div(
+                    rx.el.button(
+                        rx.icon("arrow-left", size=16),
+                        on_click=lambda: QuizState.set_page("home"),
+                        class_name="p-1 border border-[#00ff9f] text-[#00ff9f] hover:bg-[#00ff9f] hover:text-black transition-colors mr-4",
+                    ),
+                    rx.el.div(
+                        rx.el.h1("PLAYER STATS", class_name="text-xl font-bold text-[#00ff9f] tracking-widest text-shadow-neon-green"),
+                        rx.el.p("Your napping career overview", class_name="text-xs text-gray-400 font-mono"),
+                        class_name="flex flex-col"
+                    ),
+                    class_name="flex items-center"
                 ),
-                rx.el.p(
-                    f"Sleep Persona: {QuizState.personality_details['title']}",
-                    class_name="text-center text-md md:text-lg text-[#ff00ff] mb-8 md:mb-12",
-                ),
+                rx.icon("user", class_name="text-[#bd00ff] w-6 h-6"),
+                class_name="w-full border-2 border-[#00ff9f] p-4 flex justify-between items-center bg-[#00ff9f]/5 mb-6"
             ),
+
+            # Gamertag Input
             rx.el.div(
-                rx.el.h3(
-                    "Sleep Stats",
-                    class_name="text-xl md:text-2xl text-white text-center mb-6",
+                rx.el.input(
+                    placeholder="Enter your gamertag",
+                    value=UserState.gamertag,
+                    on_change=UserState.set_gamertag,
+                    class_name="w-full bg-transparent border border-[#00ff9f] text-[#00ff9f] p-2 text-sm font-mono focus:outline-none focus:bg-[#00ff9f]/10 mb-2 placeholder-gray-600"
+                ),
+                rx.el.button(
+                    "SAVE",
+                    on_click=UserState.save_gamertag,
+                    class_name="bg-[#00ff9f] text-black font-bold text-xs px-4 py-1 hover:bg-[#00ff9f]/80 transition-colors"
+                ),
+                class_name="w-full border border-[#bd00ff] p-4 bg-[#bd00ff]/5 mb-6"
+            ),
+
+            # EXP Bar
+            rx.el.div(
+                rx.el.div(
+                    rx.text("EXP TO NEXT LEVEL", class_name="text-xs font-bold text-gray-400 tracking-wider"),
+                    rx.text("500 XP", class_name="text-xs font-bold text-[#00ff9f]"),
+                    class_name="flex justify-between mb-2"
                 ),
                 rx.el.div(
-                    stat_card(
-                        "Total Ratings",
-                        LocationState.total_ratings_submitted,
-                        "list-checks",
-                        "pixel-border-cyan",
+                    rx.el.div(
+                        class_name="h-full bg-[#00ff9f] transition-all duration-500",
+                        style={"width": f"{UserState.xp_progress}%"}
                     ),
-                    stat_card(
-                        "Favorite Spot",
-                        LocationState.favorite_location,
-                        "heart",
-                        "pixel-border-magenta",
-                    ),
-                    stat_card(
-                        "Avg. Rating Given",
-                        LocationState.average_rating_given,
-                        "bar-chart",
-                        "pixel-border-cyan",
-                    ),
-                    stat_card(
-                        "Completion",
-                        f"{LocationState.completion_percentage}%",
-                        "flag",
-                        "pixel-border-magenta",
-                    ),
-                    class_name="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-8 md:mb-12",
+                    class_name="w-full h-2 border border-[#00ff9f] bg-[#00ff9f]/10 p-0.5"
                 ),
+                class_name="w-full border border-[#00ff9f] p-4 bg-[#00ff9f]/5 mb-6"
             ),
+
+            # Stats Grid
             rx.el.div(
-                rx.el.h3(
-                    "Achievements Unlocked",
-                    class_name="text-xl md:text-2xl text-white text-center mb-6",
-                ),
+                # Total Missions
                 rx.el.div(
-                    rx.foreach(UserState.achievements.values(), achievement_card),
-                    class_name="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6",
+                    rx.el.div(
+                        rx.icon("map-pin", size=14, class_name="mr-2 text-gray-400"),
+                        rx.text("TOTAL MISSIONS", class_name="text-xs font-bold text-gray-300 tracking-wider"),
+                        class_name="flex items-center mb-3"
+                    ),
+                    rx.icon("circle-dashed", size=32, class_name="text-[#00ff9f] mb-2"),
+                    rx.text("Top 50% globally", class_name="text-[10px] text-gray-500 font-mono"),
+                    class_name="p-4 border border-[#00ff9f] bg-[#00ff9f]/5 flex flex-col"
                 ),
+                # Locations
+                rx.el.div(
+                    rx.el.div(
+                        rx.icon("map", size=14, class_name="mr-2 text-gray-400"),
+                        rx.text("LOCATIONS", class_name="text-xs font-bold text-gray-300 tracking-wider"),
+                        class_name="flex items-center mb-3"
+                    ),
+                    rx.icon("circle-dashed", size=32, class_name="text-[#bd00ff] mb-2"),
+                    rx.text("Top 50% explorer", class_name="text-[10px] text-gray-500 font-mono"),
+                    class_name="p-4 border border-[#bd00ff] bg-[#bd00ff]/5 flex flex-col"
+                ),
+                # S-Ranks
+                rx.el.div(
+                    rx.el.div(
+                        rx.icon("star", size=14, class_name="mr-2 text-gray-400"),
+                        rx.text("S-RANKS", class_name="text-xs font-bold text-gray-300 tracking-wider"),
+                        class_name="flex items-center mb-3"
+                    ),
+                    rx.icon("circle-dashed", size=32, class_name="text-[#ffd700] mb-2"),
+                    rx.text("0% perfect rate", class_name="text-[10px] text-gray-500 font-mono"),
+                    class_name="p-4 border border-[#ffd700] bg-[#ffd700]/5 flex flex-col"
+                ),
+                # Achievements
+                rx.el.div(
+                    rx.el.div(
+                        rx.icon("trophy", size=14, class_name="mr-2 text-gray-400"),
+                        rx.text("ACHIEVEMENTS", class_name="text-xs font-bold text-gray-300 tracking-wider"),
+                        class_name="flex items-center mb-3"
+                    ),
+                    rx.icon("circle-dashed", size=32, class_name="text-[#ff00ff] mb-2"),
+                    rx.text("Top 50% hunter", class_name="text-[10px] text-gray-500 font-mono"),
+                    class_name="p-4 border border-[#ff00ff] bg-[#ff00ff]/5 flex flex-col"
+                ),
+                class_name="grid grid-cols-2 gap-4 w-full mb-6"
             ),
-            class_name="flex flex-col items-center justify-center",
+
+            # No Data Found
+            rx.cond(
+                LocationState.total_ratings_submitted == 0,
+                rx.el.div(
+                    rx.el.div(
+                        rx.icon("triangle-alert", size=16, class_name="text-[#ffd700] mr-2"),
+                        rx.text("NO DATA FOUND", class_name="text-sm font-bold text-[#ff00ff] tracking-wider"),
+                        rx.icon("triangle-alert", size=16, class_name="text-[#ffd700] ml-2"),
+                        class_name="flex items-center justify-center mb-2"
+                    ),
+                    rx.text(
+                        "Complete the quiz and start rating locations to unlock stats!",
+                        class_name="text-xs text-gray-400 text-center font-mono max-w-xs"
+                    ),
+                    class_name="w-full border border-[#ff00ff] p-6 bg-[#ff00ff]/5 flex flex-col items-center justify-center mb-6"
+                )
+            ),
+
+            # Footer
+            rx.el.div(
+                rx.text("💾 GAME SAVED AUTOMATICALLY | PRESS START TO CONTINUE 💾", class_name="text-[10px] text-gray-400 tracking-widest"),
+                class_name="w-full border border-[#bd00ff] p-3 text-center bg-[#bd00ff]/5"
+            ),
+
+            class_name="max-w-2xl mx-auto w-full"
         ),
-        class_name="w-full p-4 md:p-8 pixel-border bg-[#1a1a2e] animate-fade-in",
+        class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono"
     )

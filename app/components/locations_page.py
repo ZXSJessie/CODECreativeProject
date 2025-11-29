@@ -39,67 +39,131 @@ def star_rating(rating: rx.Var[float], size_class: str = "h-4 w-4") -> rx.Compon
 def location_card(location: Location) -> rx.Component:
     avg_ratings = LocationState.average_ratings.get(location["id"], {})
     overall_rating = avg_ratings.get("overall", 0.0)
-    return rx.el.button(
+    is_checked_in = LocationState.checked_in_locations.contains(location["id"])
+    
+    rarity_color = rx.match(
+        location["rarity"],
+        ("LEGENDARY", "#ffd700"),
+        ("EPIC", "#bd00ff"),
+        ("RARE", "#00d4ff"),
+        ("UNCOMMON", "#00ff9f"),
+        ("MYTHICAL", "#ff0055"),
+        "gray-400"
+    )
+
+    return rx.el.div(
+        # Header with Icon and Name
+        rx.el.div(
+            rx.icon(
+                location["icon"], 
+                class_name="h-8 w-8 mr-4 shrink-0",
+                style={"color": rarity_color}
+            ),
+            rx.el.div(
+                rx.el.h3(
+                    location["name"],
+                    class_name="text-md md:text-lg text-left font-bold tracking-wider",
+                    style={"color": rarity_color}
+                ),
+                rx.cond(
+                    is_checked_in,
+                    rx.el.div(
+                        rx.icon("check-circle", size=12, class_name="mr-1 text-[#00ff9f]"),
+                        rx.text("CHECKED IN", class_name="text-[10px] text-[#00ff9f] font-bold"),
+                        class_name="flex items-center mt-1"
+                    ),
+                    rx.el.div()
+                ),
+                class_name="flex flex-col"
+            ),
+            class_name="flex items-center mb-4",
+        ),
+        
+        # Description
+        rx.el.p(
+            location["description"],
+            class_name="text-xs text-left text-gray-400 mb-4 font-mono leading-relaxed",
+        ),
+
+        # Stats and Button
         rx.el.div(
             rx.el.div(
-                rx.icon(
-                    location["icon"], class_name="h-8 w-8 text-[#00d4ff] mr-4 shrink-0"
-                ),
-                rx.el.div(
-                    rx.el.h3(
-                        location["name"],
-                        class_name="text-md md:text-lg text-left text-[#00ff9f]",
-                    ),
-                    rx.el.p(
-                        location["description"],
-                        class_name="text-xs text-left text-gray-400 mt-1 line-clamp-2",
-                    ),
-                ),
-                class_name="flex items-center",
+                rx.icon("volume-2", size=12, class_name="mr-1 text-gray-500"),
+                rx.text(avg_ratings.get("quietness", 0.0), "/5", class_name="text-xs text-gray-400 mr-3"),
+                
+                rx.icon("user", size=12, class_name="mr-1 text-gray-500"),
+                rx.text(avg_ratings.get("comfort", 0.0), "/5", class_name="text-xs text-gray-400 mr-3"),
+                
+                rx.icon("star", size=12, class_name="mr-1 text-gray-500"),
+                rx.text(overall_rating, "/5", class_name="text-xs text-gray-400"),
+                
+                class_name="flex items-center mb-3"
             ),
-            rx.el.div(
-                rx.el.div(
-                    rx.el.p(
-                        overall_rating.to_string(), class_name="text-2xl font-bold"
-                    ),
-                    rx.el.p("/ 5.0", class_name="text-xs text-gray-500"),
-                    class_name="flex items-baseline gap-1 text-white",
-                ),
-                star_rating(overall_rating),
-                class_name="flex flex-col items-end",
+            rx.el.button(
+                "VIEW DETAILS",
+                on_click=lambda: LocationState.select_location(location["id"]),
+                class_name="w-full border border-[#00ff9f] text-[#00ff9f] text-xs py-2 hover:bg-[#00ff9f] hover:text-black transition-colors font-bold tracking-wider"
             ),
-            class_name="flex items-start justify-between",
+            class_name="mt-auto w-full"
         ),
-        rx.el.div(
-            rating_bar("Comfort", avg_ratings.get("comfort", 0.0), "#ff00ff"),
-            rating_bar("Quietness", avg_ratings.get("quietness", 0.0), "#00d4ff"),
-            rating_bar(
-                "Accessibility", avg_ratings.get("accessibility", 0.0), "#00ff9f"
-            ),
-            rating_bar("Vibe Check", avg_ratings.get("vibe_check", 0.0), "#ffc700"),
-            class_name="grid grid-cols-2 gap-x-4 gap-y-2 mt-4 pt-4 border-t border-dashed border-[#00d4ff]/20",
-        ),
-        on_click=lambda: LocationState.select_location(location["id"]),
-        class_name="w-full p-4 md:p-6 bg-[#1a1a2e] pixel-border-cyan flex flex-col justify-between hover:bg-[#00d4ff]/20 hover:scale-105 transition-all duration-300 text-white",
+        
+        class_name="w-full p-4 md:p-6 bg-[#1a1a2e] border border-[#00ff9f]/30 flex flex-col h-full hover:border-[#00ff9f] transition-all duration-300",
+    )
+
+
+def stat_box(value: rx.Var, label: str, color: str) -> rx.Component:
+    return rx.el.div(
+        rx.text(value, class_name=f"text-xl font-bold text-[{color}] mb-1"),
+        rx.text(label, class_name="text-[10px] text-gray-400 uppercase tracking-wider"),
+        class_name=f"flex flex-col items-center justify-center p-4 border border-[{color}] bg-[{color}]/5"
     )
 
 
 def locations_page() -> rx.Component:
     return rx.el.div(
         rx.el.div(
-            rx.el.h2(
-                "Campus Nap Archives",
-                class_name="text-3xl md:text-4xl text-[#00d4ff] text-shadow-neon text-center mb-4",
+            # Header
+            rx.el.div(
+                rx.el.div(
+                    rx.el.button(
+                        rx.icon("arrow-left", size=16),
+                        # on_click=lambda: QuizState.set_page("home"), # Assuming QuizState is available or imported if needed, but keeping it simple for now or removing back button if not in design. 
+                        # The design shows a back button.
+                        class_name="p-1 border border-[#00ff9f] text-[#00ff9f] hover:bg-[#00ff9f] hover:text-black transition-colors mr-4",
+                    ),
+                    rx.el.div(
+                        rx.el.h1("NAP QUEST MAP", class_name="text-xl font-bold text-[#00ff9f] tracking-widest text-shadow-neon-green"),
+                        rx.el.p("Select location to begin mission", class_name="text-xs text-gray-400 font-mono"),
+                        class_name="flex flex-col"
+                    ),
+                    class_name="flex items-center"
+                ),
+                rx.icon("map-pin", class_name="text-[#bd00ff] w-6 h-6"),
+                class_name="w-full border-2 border-[#00ff9f] p-4 flex justify-between items-center bg-[#00ff9f]/5 mb-6"
             ),
-            rx.el.p(
-                "Brave nappers have rated these spots. Find your next sanctuary or dare to review a new one.",
-                class_name="text-center text-gray-300 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-8 md:mb-12",
+
+            # Stats Bar
+            rx.el.div(
+                stat_box(LocationState.missions_count, "MISSIONS", "#00ff9f"),
+                stat_box(LocationState.explored_count, "CHECKED IN", "#bd00ff"),
+                stat_box(LocationState.s_rank_count, "S-RANK", "#ffd700"),
+                stat_box(LocationState.secrets_found_count, "SECRETS", "#ff0055"),
+                class_name="grid grid-cols-4 gap-4 w-full mb-8"
             ),
-            class_name="flex flex-col items-center justify-center",
+
+            # Locations Grid
+            rx.el.div(
+                rx.foreach(LocationState.locations, location_card),
+                class_name="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 w-full",
+            ),
+            
+            # Tip Footer
+            rx.el.div(
+                rx.text("[TIP: Click on location to start quest and rate your experience]", class_name="text-[10px] text-gray-400 tracking-widest font-mono"),
+                class_name="w-full border border-gray-700 p-3 mt-8 text-center bg-gray-900/50"
+            ),
+
+            class_name="max-w-4xl mx-auto w-full flex flex-col"
         ),
-        rx.el.div(
-            rx.foreach(LocationState.locations, location_card),
-            class_name="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8",
-        ),
-        class_name="w-full p-4 md:p-8 pixel-border bg-[#1a1a2e] animate-fade-in",
+        class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono"
     )

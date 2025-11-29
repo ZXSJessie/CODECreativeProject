@@ -20,37 +20,103 @@ class Location(TypedDict):
     description: str
     icon: str
     model_id: str
+    rarity: str
+    is_secret: bool
 
 
 class LocationState(rx.State):
+    checked_in_locations: set[str] = set()
+    
     locations: list[Location] = [
         {
-            "id": "library-alcove",
-            "name": "Library Alcove 3F",
-            "description": "A forgotten corner on the third floor, where the scent of old books lulls you to sleep. Occasional page-turning sounds.",
-            "icon": "book",
-            "model_id": "b26a267e5a2a4779a0c55814ded990e9",
+            "id": "cdm-sofa-paradise",
+            "name": "Study room on the G floor of the library",
+            "description": "Your demand for comfort rivals that of a five-star hotel sleep tester. Here, the sofa is a cloud, the power outlet is a magical spring. With stable Wi-Fi, you might even dream of being rewarded with credit hours.",
+            "icon": "sofa",
+            "model_id": "b67d3200015b48db9546fc8e2afd6168",
+            "rarity": "LEGENDARY",
+            "is_secret": False,
         },
         {
-            "id": "union-sofa",
-            "name": "Student Union Sofa",
-            "description": "A surprisingly comfy sofa near the perpetually-broken vending machine. High traffic, but a strategic nap spot.",
-            "icon": "couch",
-            "model_id": "54ffbfc1e493462e800e8a5935f1ca90",
+            "id": "ldp-lecture-phantom",
+            "name": "The corridor of bookshelves on the G floor of the library",
+            "description": "Your sleep here is like a footnote in a thesis—precise, brief, yet indispensable. Each time you close your eyes, it's like activating 'Deep Recovery Mode,' restoring 80% energy in 5 minutes. But, sleeping here... is this bookshelf about to fall over...?",
+            "icon": "zap",
+            "model_id": "d682b1a9ea2f4683914f9e6384dcb845",
+            "rarity": "EPIC",
+            "is_secret": False,
         },
         {
-            "id": "quad-tree",
-            "name": "The Great Oak on the Quad",
-            "description": "Shade-abundant and grass-cushioned. Risk of frisbees and overly-enthusiastic squirrels.",
-            "icon": "tree-pine",
-            "model_id": "b26a267e5a2a4779a0c55814ded990e9",
+            "id": "cdm-ergonomic-island",
+            "name": "Sofa on the G floor of the library",
+            "description": "This isn't a sofa; it's your 'Ergonomic Island.' People passing by? They're just the sightseers in your dream's bullet comments. You recharge your energy and your inspiration—waking up fully charged, with inspiration unlocked in a new skin.",
+            "icon": "sofa",
+            "model_id": "5d549bf015bf49f8add67eb74e86ad26",
+            "rarity": "LEGENDARY",
+            "is_secret": False,
         },
         {
-            "id": "basement-lounge",
-            "name": "Arts Building Basement Lounge",
-            "description": "Eerily quiet and perpetually cool. The hum of the building's entrails is your only companion.",
-            "icon": "warehouse",
-            "model_id": "b26a267e5a2a4779a0c55814ded990e9",
+            "id": "pms-urban-sleeper",
+            "name": "Outdoor wooden chair",
+            "description": "You sleep on the city's pulse. The subway vibrations are white noise, the passing shadows are your dynamic screensaver. You're not napping outdoors; you're starring in a live performance of 'Urban Sleep Log.'",
+            "icon": "compass",
+            "model_id": "932a64b422a94be9bec6899d36c6f6ea",
+            "rarity": "UNCOMMON",
+            "is_secret": False,
+        },
+        {
+            "id": "pms-umbrella-universe",
+            "name": "Outdoor dining chair",
+            "description": "Under the sunshade umbrella, you are your own shopkeeper. Occasionally someone studying? They're just extras in your dream~",
+            "icon": "compass",
+            "model_id": "0201608218144d65892e4f63647774d0",
+            "rarity": "UNCOMMON",
+            "is_secret": False,
+        },
+        {
+            "id": "pms-stone-zen",
+            "name": "Outdoor stone chair",
+            "description": "A four-person stone bench, you occupy one corner, the greenery is your screen. An occasional passerby? They're just forest spirits in your dream~",
+            "icon": "compass",
+            "model_id": "d33020d326bb4e6bbcf6043f6f5dfb1b",
+            "rarity": "UNCOMMON",
+            "is_secret": False,
+        },
+        {
+            "id": "pnp-milk-tea-dreams",
+            "name": "JCIT Milk Tea Shop",
+            "description": "Fall asleep to the scent of milk tea, wake up at the round table. I will strategically choose the 'off-peak hours'!",
+            "icon": "clock",
+            "model_id": "6c59d214f3224a6b9fa9f135937ff3ff",
+            "rarity": "RARE",
+            "is_secret": False,
+        },
+        {
+            "id": "ldp-stealth-stairs",
+            "name": "JCIT Stairwell",
+            "description": "The stench is your barrier, the emptiness is your dojo. No people, right? That's called 'Stealth Skill Activated'!",
+            "icon": "zap",
+            "model_id": "f0ca0a25820646bf9575d7e075aefae2",
+            "rarity": "EPIC",
+            "is_secret": False,
+        },
+        {
+            "id": "cdm-curtain-instance",
+            "name": "JCIT Study Room Partition Area",
+            "description": "Curtain drawn, reclining on the small chair, game console on standby~ The people around are just the audience of your sleep livestream!",
+            "icon": "sofa",
+            "model_id": "b1c28102ab3a4a7193e7b89a2130a19f",
+            "rarity": "LEGENDARY",
+            "is_secret": False,
+        },
+        {
+            "id": "cdm-modular-dreams",
+            "name": "JCIT Study Room Sofa",
+            "description": "Modular sofas for you to arrange, the view outside for you to enjoy~ Just love the 'shared sleep experience'!",
+            "icon": "sofa",
+            "model_id": "85aa52c8637b42d18d7fb082bd11d265",
+            "rarity": "LEGENDARY",
+            "is_secret": False,
         },
     ]
     ratings: dict[str, list[Rating]] = {}
@@ -62,6 +128,54 @@ class LocationState(rx.State):
         "vibe_check": 3,
         "danger": 3,
     }
+
+    @rx.event
+    async def check_in_location(self, location_id: str):
+        from app.states.user_state import UserState
+        
+        if location_id not in self.checked_in_locations:
+            self.checked_in_locations.add(location_id)
+            user_state = await self.get_state(UserState)
+            
+            # Find location details
+            location = next((loc for loc in self.locations if loc["id"] == location_id), None)
+            
+            if location:
+                yield rx.toast(f"CHECKED IN: {location['name']}", duration=3000)
+                
+                if location["is_secret"]:
+                    yield user_state.unlock_achievement("secret-spot-explorer")
+                    yield user_state.unlock_achievement("secret-boss-defeated")
+                
+                # XP Gain
+                user_state.xp += 100
+                yield rx.toast("+100 XP", duration=2000)
+
+    @rx.var
+    def missions_count(self) -> int:
+        return len(self.ratings)
+
+    @rx.var
+    def explored_count(self) -> int:
+        return len(self.checked_in_locations)
+
+    @rx.var
+    def s_rank_count(self) -> int:
+        count = 0
+        for ratings in self.ratings.values():
+            for r in ratings:
+                if all(v == 5 for v in r.values()):
+                    count += 1
+        return count
+
+    @rx.var
+    def secrets_found_count(self) -> int:
+        count = 0
+        for loc_id in self.checked_in_locations:
+            loc = next((l for l in self.locations if l["id"] == loc_id), None)
+            if loc and loc["is_secret"]:
+                count += 1
+        return count
 
     @rx.event
     async def select_location(self, location_id: str):
