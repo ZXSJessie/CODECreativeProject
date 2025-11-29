@@ -16,12 +16,14 @@ class Rating(TypedDict):
 
 class Location(TypedDict):
     id: str
+    location: str
     name: str
     description: str
     icon: str
     model_id: str
     rarity: str
     is_secret: bool
+    sample_rating: Rating
 
 
 class LocationState(rx.State):
@@ -29,94 +31,114 @@ class LocationState(rx.State):
     
     locations: list[Location] = [
         {
-            "id": "cdm-sofa-paradise",
-            "name": "Study room on the G floor of the library",
+            "id": "cloud-nine-credit",
+            "location": "Study room on the G floor of the library",
+            "name": "Cloud Nine Credit Charge",
             "description": "Your demand for comfort rivals that of a five-star hotel sleep tester. Here, the sofa is a cloud, the power outlet is a magical spring. With stable Wi-Fi, you might even dream of being rewarded with credit hours.",
             "icon": "sofa",
             "model_id": "b67d3200015b48db9546fc8e2afd6168",
             "rarity": "LEGENDARY",
             "is_secret": False,
+            "sample_rating": {"comfort": 5, "quietness": 5, "accessibility": 3, "vibe_check": 3, "danger": 1}
         },
         {
-            "id": "ldp-lecture-phantom",
-            "name": "The corridor of bookshelves on the G floor of the library",
+            "id": "the-spynap-alley",
+            "location": "The corridor of bookshelves on the G floor of the library",
+            "name": "The Spy-Nap Alley",
             "description": "Your sleep here is like a footnote in a thesis—precise, brief, yet indispensable. Each time you close your eyes, it's like activating 'Deep Recovery Mode,' restoring 80% energy in 5 minutes. But, sleeping here... is this bookshelf about to fall over...?",
             "icon": "zap",
             "model_id": "d682b1a9ea2f4683914f9e6384dcb845",
             "rarity": "EPIC",
             "is_secret": False,
+            "sample_rating": {"comfort": 4, "quietness": 3, "accessibility": 4, "vibe_check": 3, "danger": 1}
         },
         {
-            "id": "cdm-ergonomic-island",
-            "name": "Sofa on the G floor of the library",
+            "id": "the-public-isolation",
+            "location": "Sofa on the G floor of the library",
+            "name": "The Public Isolation Island",
             "description": "This isn't a sofa; it's your 'Ergonomic Island.' People passing by? They're just the sightseers in your dream's bullet comments. You recharge your energy and your inspiration—waking up fully charged, with inspiration unlocked in a new skin.",
             "icon": "sofa",
             "model_id": "5d549bf015bf49f8add67eb74e86ad26",
             "rarity": "LEGENDARY",
             "is_secret": False,
+            "sample_rating": {"comfort": 4, "quietness": 4, "accessibility": 5, "vibe_check": 3, "danger": 1}
         },
         {
-            "id": "pms-urban-sleeper",
-            "name": "Outdoor wooden chair",
+            "id": "the-urban-zen",
+            "location": "Outdoor wooden chair",
+            "name": "The Urban Zen Bench",
             "description": "You sleep on the city's pulse. The subway vibrations are white noise, the passing shadows are your dynamic screensaver. You're not napping outdoors; you're starring in a live performance of 'Urban Sleep Log.'",
             "icon": "compass",
             "model_id": "932a64b422a94be9bec6899d36c6f6ea",
             "rarity": "UNCOMMON",
             "is_secret": False,
+            "sample_rating": {"comfort": 2, "quietness": 2, "accessibility": 4, "vibe_check": 3, "danger": 1}
         },
         {
-            "id": "pms-umbrella-universe",
-            "name": "Outdoor dining chair",
+            "id": "the-shade-throne",
+            "location": "Outdoor dining chair",
+            "name": "The Shade Throne",
             "description": "Under the sunshade umbrella, you are your own shopkeeper. Occasionally someone studying? They're just extras in your dream~",
             "icon": "compass",
             "model_id": "0201608218144d65892e4f63647774d0",
             "rarity": "UNCOMMON",
             "is_secret": False,
+            "sample_rating": {"comfort": 3, "quietness": 3, "accessibility": 5, "vibe_check": 3, "danger": 1}
         },
         {
-            "id": "pms-stone-zen",
-            "name": "Outdoor stone chair",
+            "id": "the-stonecold-zen",
+            "location": "Outdoor stone chair",
+            "name": "The Stone-Cold Zen Zone",
             "description": "A four-person stone bench, you occupy one corner, the greenery is your screen. An occasional passerby? They're just forest spirits in your dream~",
             "icon": "compass",
             "model_id": "d33020d326bb4e6bbcf6043f6f5dfb1b",
             "rarity": "UNCOMMON",
             "is_secret": False,
+            "sample_rating": {"comfort": 1, "quietness": 1, "accessibility": 4, "vibe_check": 3, "danger": 1}
         },
         {
-            "id": "pnp-milk-tea-dreams",
-            "name": "JCIT Milk Tea Shop",
+            "id": "the-bobafueled-snooze",
+            "location": "JCIT Milk Tea Shop",
+            "name": "The Boba-Fueled Snooze Booth",
             "description": "Fall asleep to the scent of milk tea, wake up at the round table. I will strategically choose the 'off-peak hours'!",
-            "icon": "clock",
+            "icon": "bed-double",
             "model_id": "6c59d214f3224a6b9fa9f135937ff3ff",
             "rarity": "RARE",
             "is_secret": False,
+            "sample_rating": {"comfort": 3, "quietness": 2, "accessibility": 3, "vibe_check": 3, "danger": 1}
         },
         {
-            "id": "ldp-stealth-stairs",
-            "name": "JCIT Stairwell",
+            "id": "the-stairwell-stealth",
+            "location": "JCIT Stairwell",
+            "name": "The Stairwell Stealth Suite",
             "description": "The stench is your barrier, the emptiness is your dojo. No people, right? That's called 'Stealth Skill Activated'!",
             "icon": "zap",
             "model_id": "f0ca0a25820646bf9575d7e075aefae2",
             "rarity": "EPIC",
             "is_secret": False,
+            "sample_rating": {"comfort": 1, "quietness": 1, "accessibility": 2, "vibe_check": 3, "danger": 1}
         },
         {
-            "id": "cdm-curtain-instance",
-            "name": "JCIT Study Room Partition Area",
+            "id": "the-curtaincall-nap",
+            "location": "JCIT Study Room Partition Area",
+            "name": "The Curtain-Call Nap Studio",
             "description": "Curtain drawn, reclining on the small chair, game console on standby~ The people around are just the audience of your sleep livestream!",
             "icon": "sofa",
             "model_id": "b1c28102ab3a4a7193e7b89a2130a19f",
             "rarity": "LEGENDARY",
             "is_secret": False,
+            "sample_rating": {"comfort": 3, "quietness": 3, "accessibility": 4, "vibe_check": 3, "danger": 1}
         },
         {
-            "id": "cdm-modular-dreams",
-            "name": "JCIT Study Room Sofa",
+            "id": "the-modular-dream",
+            "location": "JCIT Study Room Sofa",
+            "name": "The Modular Dream Fort",
             "description": "Modular sofas for you to arrange, the view outside for you to enjoy~ Just love the 'shared sleep experience'!",
             "icon": "sofa",
             "model_id": "85aa52c8637b42d18d7fb082bd11d265",
             "rarity": "LEGENDARY",
             "is_secret": False,
+            "sample_rating": {"comfort": 4, "quietness": 5, "accessibility": 5, "vibe_check": 3, "danger": 1}
         },
     ]
     ratings: dict[str, list[Rating]] = {}
@@ -172,17 +194,17 @@ class LocationState(rx.State):
                 checked_in_list = list(self.checked_in_locations)
                 
                 # Library Legend - all library locations
-                library_locs = ["cdm-sofa-paradise", "ldp-lecture-phantom", "cdm-ergonomic-island"]
+                library_locs = ["cloud-nine-credit", "the-spynap-alley", "the-public-isolation"]
                 if all(loc in checked_in_list for loc in library_locs):
                     yield user_state.unlock_achievement("library-legend")
                 
                 # Outdoor Enthusiast - all outdoor locations
-                outdoor_locs = ["pms-urban-sleeper", "pms-umbrella-universe", "pms-stone-zen"]
+                outdoor_locs = ["the-urban-zen", "the-shade-throne", "the-stonecold-zen"]
                 if all(loc in checked_in_list for loc in outdoor_locs):
                     yield user_state.unlock_achievement("outdoor-enthusiast")
                 
                 # JCIT Master - all JCIT locations
-                jcit_locs = ["pnp-milk-tea-dreams", "ldp-stealth-stairs", "cdm-curtain-instance", "cdm-modular-dreams"]
+                jcit_locs = ["the-bobafueled-snooze", "the-stairwell-stealth", "the-curtaincall-nap", "the-modular-dream"]
                 if all(loc in checked_in_list for loc in jcit_locs):
                     yield user_state.unlock_achievement("jcit-master")
                 
@@ -460,17 +482,26 @@ class LocationState(rx.State):
     @rx.var
     def average_ratings(self) -> dict[str, dict[str, float]]:
         avg_ratings = {}
-        for loc_id, rating_list in self.ratings.items():
+        
+        # Process all locations, including those without user ratings
+        for location in self.locations:
+            loc_id = location["id"]
+            rating_list = self.ratings.get(loc_id, [])
+            
             if not rating_list:
+                # Use sample rating when no user ratings exist
+                sample = location["sample_rating"]
                 avg_ratings[loc_id] = {
-                    "comfort": 0,
-                    "quietness": 0,
-                    "accessibility": 0,
-                    "vibe_check": 0,
-                    "danger": 0,
-                    "overall": 0,
+                    "comfort": float(sample["comfort"]),
+                    "quietness": float(sample["quietness"]),
+                    "accessibility": float(sample["accessibility"]),
+                    "vibe_check": float(sample["vibe_check"]),
+                    "danger": float(sample["danger"]),
+                    "overall": round(sum(sample.values()) / len(sample), 1),
                 }
                 continue
+            
+            # Calculate averages from user ratings
             comfort_avg = self._calculate_average([r["comfort"] for r in rating_list])
             quietness_avg = self._calculate_average(
                 [r["quietness"] for r in rating_list]

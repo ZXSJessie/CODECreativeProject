@@ -18,7 +18,7 @@ def visited_location_card(location: Location) -> rx.Component:
     )
 
     return rx.el.div(
-        # Header with Icon and Name
+        # Header with Icon and Names
         rx.el.div(
             rx.icon(
                 location["icon"], 
@@ -26,10 +26,16 @@ def visited_location_card(location: Location) -> rx.Component:
                 style={"color": rarity_color}
             ),
             rx.el.div(
+                # Creative Name (larger, colored)
                 rx.el.h3(
                     location["name"],
                     class_name="text-md md:text-lg text-left font-bold tracking-wider",
                     style={"color": rarity_color}
+                ),
+                # Physical Location (smaller, gray)
+                rx.el.p(
+                    "\ud83d\udccd ", location["location"],
+                    class_name="text-[10px] text-gray-500 mt-1 font-mono"
                 ),
                 rx.el.div(
                     rx.icon("circle-check", size=12, class_name="mr-1 text-[#00ff9f]"),

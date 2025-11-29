@@ -1,6 +1,7 @@
 import reflex as rx
 from app.states.location_state import LocationState, Location
 from app.components.sketchfab import sketchfab_model
+from app.components.interactive_map import interactive_campus_map
 
 
 def rating_bar(label: str, rating: rx.Var[float], color: str) -> rx.Component:
@@ -52,7 +53,7 @@ def location_card(location: Location) -> rx.Component:
     )
 
     return rx.el.div(
-        # Header with Icon and Name
+        # Header with Icon and Names
         rx.el.div(
             rx.icon(
                 location["icon"], 
@@ -60,10 +61,16 @@ def location_card(location: Location) -> rx.Component:
                 style={"color": rarity_color}
             ),
             rx.el.div(
+                # Creative Name (larger, colored)
                 rx.el.h3(
                     location["name"],
                     class_name="text-md md:text-lg text-left font-bold tracking-wider",
                     style={"color": rarity_color}
+                ),
+                # Physical Location (smaller, gray, monospace)
+                rx.el.p(
+                    "📍 ", location["location"],
+                    class_name="text-[10px] text-gray-500 mt-1 font-mono"
                 ),
                 rx.cond(
                     is_checked_in,
@@ -150,6 +157,9 @@ def locations_page() -> rx.Component:
                 stat_box(LocationState.secrets_found_count, "SECRETS", "#ff0055"),
                 class_name="grid grid-cols-4 gap-4 w-full mb-8"
             ),
+
+            # Interactive Campus Map
+            interactive_campus_map(),
 
             # Locations Grid
             rx.el.div(

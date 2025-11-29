@@ -71,9 +71,18 @@ def location_detail_page() -> rx.Component:
                             class_name="mr-4",
                             style={"color": "#00ff9f"}
                         ),
-                        rx.el.h1(
-                            LocationState.selected_location["name"],
-                            class_name="text-xl md:text-2xl text-[#00ff9f] font-bold tracking-widest uppercase text-shadow-neon-green"
+                        rx.el.div(
+                            # Creative Name (larger, green)
+                            rx.el.h1(
+                                LocationState.selected_location["name"],
+                                class_name="text-xl md:text-2xl text-[#00ff9f] font-bold tracking-widest uppercase text-shadow-neon-green"
+                            ),
+                            # Physical Location (smaller, gray)
+                            rx.el.p(
+                                "\ud83d\udccd ", LocationState.selected_location["location"],
+                                class_name="text-xs text-gray-500 mt-1 font-mono"
+                            ),
+                            class_name="flex flex-col"
                         ),
                         class_name="flex items-center"
                     ),
