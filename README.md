@@ -26,7 +26,7 @@
 *   **Achievements**: Unlock badges and achievements for exploring different spots and leveling up.
 
 *   **Profile & Stats**: Track your visited locations, favorite spots, and sleeper rank.
-*   
+
 *   **Interactive Campus Map**: Navigate through different buildings (Library, JCIT) and floors to find nap spots.
 
 ## 🛠️ Tech Stack
