@@ -14,7 +14,7 @@ def choice_button(
             class_name="flex items-center",
         ),
         on_click=lambda: QuizState.handle_answer(question_index, choice_key),
-        class_name="w-full p-4 bg-[#1a1a2e]/80 border border-gray-700 hover:border-[#00ff9f] hover:bg-[#00ff9f]/10 transition-all duration-200 flex justify-start items-center mb-3 group",
+        class_name="w-full p-4 bg-[#1a1a2e]/80 border-4 border-gray-700 hover:border-[#00ff9f] hover:bg-[#00ff9f]/10 transition-all duration-200 flex justify-start items-center mb-3 group",
     )
 
 
@@ -41,7 +41,7 @@ def quiz_question(question: dict, index: int) -> rx.Component:
             rx.el.button(
                 "← BACK",
                 # Logic for back button could be added to QuizState if needed, for now it's visual or could reset
-                class_name="px-6 py-2 border border-[#ff00ff] text-[#ff00ff] font-bold text-xs hover:bg-[#ff00ff] hover:text-black transition-colors font-mono"
+                class_name="px-6 py-2 border-4 border-[#ff00ff] text-[#ff00ff] font-bold text-xs hover:bg-[#ff00ff] hover:text-black transition-colors font-mono"
             ),
             rx.el.button(
                 "NEXT →",
@@ -67,7 +67,7 @@ def progress_bar() -> rx.Component:
             style={"width": QuizState.progress_percent},
             class_name="h-full bg-gradient-to-r from-[#00ff9f] to-[#bd00ff] transition-all duration-500",
         ),
-        class_name="w-full h-2 bg-[#1a1a2e] border-b border-gray-800 relative overflow-hidden mb-8",
+        class_name="w-full h-2 bg-[#1a1a2e] border-b-4 border-gray-800 relative overflow-hidden mb-8",
     )
 
 
@@ -107,7 +107,7 @@ def quiz_page() -> rx.Component:
                         ),
                         class_name="flex justify-center mb-4"
                     ),
-                    class_name="w-full border-2 border-[#00ff9f] p-4 bg-[#00ff9f]/5 mb-0 max-w-2xl mx-auto"
+                    class_name="w-full pixel-border p-4 bg-[#00ff9f]/5 mb-0 max-w-2xl mx-auto"
                 ),
                 
                 progress_bar(),
@@ -116,7 +116,7 @@ def quiz_page() -> rx.Component:
                     quiz_question(
                         QuizState.current_question, QuizState.current_question_index
                     ),
-                    class_name="w-full max-w-4xl mx-auto p-4 border border-[#bd00ff]/30 bg-[#1a1a2e]/50 min-h-[400px] flex flex-col justify-center",
+                    class_name="w-full max-w-4xl mx-auto p-4 pixel-border-purple bg-[#1a1a2e]/50 min-h-[400px] flex flex-col justify-center",
                 ),
                 class_name="w-full max-w-4xl mx-auto",
             ),

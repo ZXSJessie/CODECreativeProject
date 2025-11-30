@@ -17,7 +17,7 @@ def rating_bar(label: str, rating: rx.Var[float], color: str) -> rx.Component:
                 },
                 class_name="h-2 transition-all duration-500",
             ),
-            class_name="w-full bg-[#0a0a0f] border border-dashed border-gray-600 h-2 mt-1",
+            class_name="w-full bg-[#0a0a0f] border-4 border-dashed border-gray-600 h-2 mt-1",
         ),
         class_name="w-full",
     )
@@ -57,12 +57,10 @@ def location_card(location: Location) -> rx.Component:
     # Use a dynamic border color based on recommendation
     # We define the styles as dictionaries and switch between them
     style_recommended = {
-        "borderColor": "#ffd700",
         "backgroundColor": "rgba(255, 215, 0, 0.05)",
         "boxShadow": "0 0 15px rgba(255, 215, 0, 0.1)",
     }
     style_normal = {
-        "borderColor": "#00ff9f30",
         "backgroundColor": "#1a1a2e",
         "boxShadow": "none",
     }
@@ -135,21 +133,25 @@ def location_card(location: Location) -> rx.Component:
             rx.el.button(
                 "VIEW DETAILS",
                 on_click=lambda: LocationState.select_location(location["id"]),
-                class_name="w-full border border-[#00ff9f] text-[#00ff9f] text-xs py-2 hover:bg-[#00ff9f] hover:text-black transition-colors font-bold tracking-wider"
+                class_name="w-full pixel-border text-[#00ff9f] text-xs py-2 hover:bg-[#00ff9f] hover:text-black transition-colors font-bold tracking-wider"
             ),
             class_name="mt-auto w-full"
         ),
         
-        class_name="w-full p-4 md:p-6 border flex flex-col h-full transition-all duration-300 relative mt-2",
+        class_name=rx.cond(
+            is_recommended,
+            "w-full p-4 md:p-6 pixel-border-yellow flex flex-col h-full transition-all duration-300 relative mt-2",
+            "w-full p-4 md:p-6 pixel-border flex flex-col h-full transition-all duration-300 relative mt-2"
+        ),
         style=rx.cond(is_recommended, style_recommended, style_normal)
     )
 
 
-def stat_box(value: rx.Var, label: str, color: str) -> rx.Component:
+def stat_box(value: rx.Var, label: str, color: str, border_class: str) -> rx.Component:
     return rx.el.div(
         rx.text(value, class_name=f"text-xl font-bold text-[{color}] mb-1"),
         rx.text(label, class_name="text-[10px] text-gray-400 uppercase tracking-wider"),
-        class_name=f"flex flex-col items-center justify-center p-4 border border-[{color}] bg-[{color}]/5"
+        class_name=f"flex flex-col items-center justify-center p-4 {border_class} bg-[{color}]/5"
     )
 
 
@@ -163,7 +165,7 @@ def locations_page() -> rx.Component:
                         rx.icon("arrow-left", size=16),
                         # on_click=lambda: QuizState.set_page("home"), # Assuming QuizState is available or imported if needed, but keeping it simple for now or removing back button if not in design. 
                         # The design shows a back button.
-                        class_name="p-1 border border-[#00ff9f] text-[#00ff9f] hover:bg-[#00ff9f] hover:text-black transition-colors mr-4",
+                        class_name="p-1 pixel-border text-[#00ff9f] hover:bg-[#00ff9f] hover:text-black transition-colors mr-4",
                     ),
                     rx.el.div(
                         rx.el.h1("NAP QUEST MAP", class_name="text-xl font-bold text-[#00ff9f] tracking-widest text-shadow-neon-green"),
@@ -173,15 +175,15 @@ def locations_page() -> rx.Component:
                     class_name="flex items-center"
                 ),
                 rx.icon("map-pin", class_name="text-[#bd00ff] w-6 h-6"),
-                class_name="w-full border-2 border-[#00ff9f] p-4 flex justify-between items-center bg-[#00ff9f]/5 mb-6"
+                class_name="w-full pixel-border p-4 flex justify-between items-center bg-[#00ff9f]/5 mb-6"
             ),
 
             # Stats Bar
             rx.el.div(
-                stat_box(LocationState.missions_count, "MISSIONS", "#00ff9f"),
-                stat_box(LocationState.explored_count, "CHECKED IN", "#bd00ff"),
-                stat_box(LocationState.s_rank_count, "S-RANK", "#ffd700"),
-                stat_box(LocationState.secrets_found_count, "SECRETS", "#ff0055"),
+                stat_box(LocationState.missions_count, "MISSIONS", "#00ff9f", "pixel-border"),
+                stat_box(LocationState.explored_count, "CHECKED IN", "#bd00ff", "pixel-border-purple"),
+                stat_box(LocationState.s_rank_count, "S-RANK", "#ffd700", "pixel-border-yellow"),
+                stat_box(LocationState.secrets_found_count, "SECRETS", "#ff0055", "pixel-border-pink"),
                 class_name="grid grid-cols-4 gap-4 w-full mb-8"
             ),
 
@@ -197,10 +199,10 @@ def locations_page() -> rx.Component:
             # Tip Footer
             rx.el.div(
                 rx.text("[TIP: Click on location to start quest and rate your experience]", class_name="text-[10px] text-gray-400 tracking-widest font-mono"),
-                class_name="w-full border border-gray-700 p-3 mt-8 text-center bg-gray-900/50"
+                class_name="w-full pixel-border-gray p-3 mt-8 text-center bg-gray-900/50"
             ),
 
-            class_name="max-w-4xl mx-auto w-full flex flex-col"
+            class_name="max-w-6xl mx-auto w-full flex flex-col"
         ),
         class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono"
     )

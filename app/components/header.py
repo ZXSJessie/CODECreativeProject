@@ -8,7 +8,7 @@ def nav_button(text: str, page: str, is_mobile: bool = False) -> rx.Component:
         on_click=lambda: QuizState.set_page(page),
         class_name=rx.cond(
             QuizState.current_page == page,
-            "px-4 py-2 text-sm text-[#00ff9f] text-shadow-neon border-b-2 border-[#00ff9f]",
+            "px-4 py-2 text-sm text-[#00ff9f] text-shadow-neon border-b-4 border-[#00ff9f]",
             "px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors",
         ),
     )
@@ -55,9 +55,9 @@ def header() -> rx.Component:
                     nav_button("Profile", "profile", is_mobile=True),
                     class_name="flex flex-col items-start gap-4 p-4",
                 ),
-                class_name="md:hidden absolute top-full left-0 w-full bg-[#1a1a2e]/90 backdrop-blur-sm border-b-2 border-[#00ff9f]/20",
+                class_name="md:hidden absolute top-full left-0 w-full bg-[#1a1a2e]/90 backdrop-blur-sm border-b-4 border-[#00ff9f]/20",
             ),
             None,
         ),
-        class_name="w-full p-4 bg-[#1a1a2e]/50 backdrop-blur-sm border-b-2 border-[#00ff9f]/20 flex justify-center relative z-10",
+        class_name="w-full p-4 bg-[#1a1a2e]/50 backdrop-blur-sm border-b-4 border-[#00ff9f]/20 flex justify-center relative z-10",
     )
