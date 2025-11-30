@@ -1,7 +1,7 @@
 **Poly-U-Nap** is a web application designed to help students at PolyU find the best places to take a nap on campus. Whether you''re looking for a quiet corner in the library or a hidden gem in the Innovation Tower, this app has you covered.
 
-> *Scan. Rate. Nap. Repeat.*
 ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/e7128e9c1563cd2335221bd9e12d1866cfe92097/cover.png)
+> *Scan. Rate. Nap. Repeat.*
 
 ## 🔗 Live Demo
 [**Click here to visit the live app!**](https://poly-u-nap.reflex.run)
