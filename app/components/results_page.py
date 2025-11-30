@@ -25,7 +25,7 @@ def unlocked_location_tag(spot_id: str) -> rx.Component:
         rx.icon("map-pin", size=12, class_name="mr-1"),
         rx.text(location_name, class_name="text-[10px] font-bold"),
         on_click=LocationState.select_location(spot_id),
-        class_name="flex items-center px-2 py-1 border border-[#bd00ff] text-[#bd00ff] bg-[#bd00ff]/10 mr-2 mb-2 cursor-pointer hover:bg-[#bd00ff]/30 transition-colors"
+        class_name="flex items-center px-2 py-1 border-2 border-[#bd00ff] text-[#bd00ff] mr-2 mb-2 cursor-pointer hover:bg-[#bd00ff] hover:text-black transition-colors"
     )
 
 
@@ -35,8 +35,8 @@ def results_page() -> rx.Component:
             # Header Box
             rx.el.div(
                 # Top decorative squares
-                rx.el.div(class_name="absolute top-0 left-0 w-2 h-2 bg-[#00ff9f]"),
-                rx.el.div(class_name="absolute bottom-0 left-0 w-2 h-2 bg-[#ffd700]"),
+                rx.el.div(class_name="absolute top-0 left-0 w-3 h-3 bg-[#00ff9f]"),
+                rx.el.div(class_name="absolute bottom-0 left-0 w-3 h-3 bg-[#ffd700]"),
                 
                 rx.el.div(
                     rx.icon(
@@ -46,7 +46,7 @@ def results_page() -> rx.Component:
                     rx.text("[ CHARACTER ANALYSIS COMPLETE ]", class_name="text-xs text-gray-400 font-mono mb-2 tracking-widest"),
                     rx.el.h2(
                         QuizState.personality_details["title"],
-                        class_name="text-3xl md:text-4xl text-[#00ff9f] font-bold text-shadow-neon-green mb-4 text-center tracking-wider uppercase",
+                        class_name="text-3xl md:text-4xl text-[#00ff9f] font-bold text-shadow-neon mb-4 text-center tracking-wider uppercase",
                     ),
                     rx.el.div(
                         rx.el.span("■", class_name="text-[#bd00ff] text-xs mr-2"),
@@ -56,7 +56,7 @@ def results_page() -> rx.Component:
                     ),
                     class_name="flex flex-col items-center justify-center"
                 ),
-                class_name="w-full border-2 border-[#00ff9f] p-8 bg-[#00ff9f]/5 mb-6 relative max-w-2xl mx-auto"
+                class_name="w-full pixel-border p-6 mb-6 relative max-w-3xl mx-auto"
             ),
 
             # Details Box
@@ -90,10 +90,10 @@ def results_page() -> rx.Component:
                         ),
                         class_name="flex flex-wrap"
                     ),
-                    class_name="border-t border-dashed border-gray-700 pt-4"
+                    class_name="border-t-2 border-dashed border-gray-700 pt-4"
                 ),
                 
-                class_name="w-full border border-[#bd00ff] p-6 bg-[#1a1a2e] mb-6 max-w-2xl mx-auto"
+                class_name="w-full pixel-border-purple p-6 mb-6 max-w-3xl mx-auto"
             ),
 
             # Action Buttons
@@ -102,21 +102,21 @@ def results_page() -> rx.Component:
                     rx.icon("map-pin", size=14, class_name="mr-2 text-black"),
                     "START QUEST",
                     on_click=lambda: QuizState.set_page("locations"),
-                    class_name="flex-1 bg-[#00ff9f] text-black font-bold text-sm py-3 hover:bg-[#00ff9f]/80 transition-colors flex items-center justify-center mr-2"
+                    class_name="flex-1 bg-[#00ff9f] text-black font-bold text-sm py-3 border-2 border-[#00ff9f] hover:bg-black hover:text-[#00ff9f] transition-colors flex items-center justify-center mr-4"
                 ),
                 rx.el.button(
-                    rx.icon("rotate-ccw", size=14, class_name="mr-2 text-[#bd00ff]"),
+                    rx.icon("rotate-ccw", size=14, class_name="mr-2"),
                     "RETRY",
                     on_click=QuizState.reset_quiz,
-                    class_name="px-6 border border-[#bd00ff] text-[#bd00ff] font-bold text-sm py-3 hover:bg-[#bd00ff]/10 transition-colors flex items-center justify-center mr-2"
+                    class_name="px-6 border-2 border-[#bd00ff] text-[#bd00ff] font-bold text-sm py-3 hover:bg-[#bd00ff] hover:text-black transition-colors flex items-center justify-center mr-4"
                 ),
                 rx.el.button(
-                    rx.icon("home", size=14, class_name="mr-2 text-[#bd00ff]"),
+                    rx.icon("home", size=14, class_name="mr-2"),
                     "HOME",
                     on_click=lambda: QuizState.set_page("home"),
-                    class_name="px-6 border border-[#bd00ff] text-[#bd00ff] font-bold text-sm py-3 hover:bg-[#bd00ff]/10 transition-colors flex items-center justify-center"
+                    class_name="px-6 border-2 border-[#bd00ff] text-[#bd00ff] font-bold text-sm py-3 hover:bg-[#bd00ff] hover:text-black transition-colors flex items-center justify-center"
                 ),
-                class_name="flex w-full max-w-2xl mx-auto mb-8"
+                class_name="flex w-full max-w-3xl mx-auto mb-8"
             ),
 
             # Achievement Notification
@@ -129,23 +129,23 @@ def results_page() -> rx.Component:
                         rx.icon("trophy", size=16, class_name="text-[#ffd700] ml-2"),
                         class_name="flex items-center justify-center"
                     ),
-                    class_name="w-full border border-[#ffd700] bg-[#ffd700]/10 p-3 mb-4 striped-bg" # striped-bg class would need css, but simple bg is fine
+                    class_name="w-full border-2 border-[#ffd700] p-3 mb-4"
                 ),
                 
                 # XP Gained
                 rx.el.div(
                     rx.text("XP GAINED:", class_name="text-xs font-bold text-[#00ff9f] mr-2"),
                     rx.el.div(
-                        class_name="h-2 w-32 bg-gradient-to-r from-[#00ff9f] to-[#bd00ff] mr-2"
+                        class_name="h-4 w-32 bg-gradient-to-r from-[#00ff9f] to-[#bd00ff] border border-black mr-2"
                     ),
                     rx.text("+500", class_name="text-xs font-bold text-white"),
-                    class_name="w-full border border-[#00ff9f] p-2 flex items-center justify-center bg-[#00ff9f]/5"
+                    class_name="w-full border-2 border-[#00ff9f] p-2 flex items-center justify-center"
                 ),
                 
-                class_name="w-full max-w-2xl mx-auto"
+                class_name="w-full max-w-3xl mx-auto"
             ),
 
             class_name="flex flex-col items-center w-full"
         ),
-        class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono flex flex-col items-center justify-center animate-fade-in",
+        class_name="min-h-screen retro-bg p-4 md:p-8 font-mono flex flex-col items-center justify-center animate-fade-in",
     )

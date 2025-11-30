@@ -23,7 +23,7 @@ def profile_page() -> rx.Component:
                     class_name="flex items-center"
                 ),
                 rx.icon("user", class_name="text-[#bd00ff] w-6 h-6"),
-                class_name="w-full pixel-border p-4 flex justify-between items-center bg-[#00ff9f]/5 mb-6"
+                class_name="w-full pixel-border p-4 flex justify-between items-center bg-[#1a1a2e]/40 backdrop-blur-sm mb-6"
             ),
 
             # Gamertag Input
@@ -48,7 +48,7 @@ def profile_page() -> rx.Component:
                     on_click=UserState.save_gamertag,
                     class_name="bg-[#00ff9f] text-black font-bold text-xs px-4 py-1 hover:bg-[#00ff9f]/80 transition-colors"
                 ),
-                class_name="w-full pixel-border-purple p-4 bg-[#bd00ff]/5 mb-6"
+                class_name="w-full pixel-border-purple p-4 bg-[#1a1a2e]/40 backdrop-blur-sm mb-6"
             ),
 
             # EXP Bar
@@ -65,7 +65,7 @@ def profile_page() -> rx.Component:
                     ),
                     class_name="w-full h-2 pixel-border bg-[#00ff9f]/10 p-0.5"
                 ),
-                class_name="w-full pixel-border p-4 bg-[#00ff9f]/5 mb-6"
+                class_name="w-full pixel-border p-4 bg-[#1a1a2e]/40 backdrop-blur-sm mb-6"
             ),
 
             # Stats Grid
@@ -83,7 +83,7 @@ def profile_page() -> rx.Component:
                         class_name="flex flex-col"
                     ),
                     on_click=lambda: QuizState.set_page("locations"),
-                    class_name="p-4 pixel-border bg-[#00ff9f]/5 hover:bg-[#00ff9f]/10 transition-colors cursor-pointer w-full text-left"
+                    class_name="p-4 pixel-border bg-[#1a1a2e]/40 backdrop-blur-sm hover:bg-[#00ff9f]/10 transition-colors cursor-pointer w-full text-left"
                 ),
                 # Locations (clickable)
                 rx.el.button(
@@ -98,7 +98,7 @@ def profile_page() -> rx.Component:
                         class_name="flex flex-col"
                     ),
                     on_click=lambda: QuizState.set_page("visited_locations"),
-                    class_name="p-4 pixel-border-purple bg-[#bd00ff]/5 hover:bg-[#bd00ff]/10 transition-colors cursor-pointer w-full text-left"
+                    class_name="p-4 pixel-border-purple bg-[#1a1a2e]/40 backdrop-blur-sm hover:bg-[#bd00ff]/10 transition-colors cursor-pointer w-full text-left"
                 ),
                 # S-Ranks
                 rx.el.div(
@@ -116,7 +116,7 @@ def profile_page() -> rx.Component:
                         ),
                         class_name="text-[10px] text-gray-500 font-mono"
                     ),
-                    class_name="p-4 pixel-border-yellow bg-[#ffd700]/5 flex flex-col"
+                    class_name="p-4 pixel-border-yellow bg-[#1a1a2e]/40 backdrop-blur-sm flex flex-col"
                 ),
                 # Achievements (clickable)
                 rx.el.button(
@@ -131,7 +131,7 @@ def profile_page() -> rx.Component:
                         class_name="flex flex-col"
                     ),
                     on_click=lambda: QuizState.set_page("achievements"),
-                    class_name="p-4 pixel-border-pink bg-[#ff00ff]/5 hover:bg-[#ff00ff]/10 transition-colors cursor-pointer w-full text-left"
+                    class_name="p-4 pixel-border-pink bg-[#1a1a2e]/40 backdrop-blur-sm hover:bg-[#ff00ff]/10 transition-colors cursor-pointer w-full text-left"
                 ),
                 class_name="grid grid-cols-2 gap-4 w-full mb-6"
             ),
@@ -150,17 +150,17 @@ def profile_page() -> rx.Component:
                         "Complete the quiz and start rating locations to unlock stats!",
                         class_name="text-xs text-gray-400 text-center font-mono max-w-xs"
                     ),
-                    class_name="w-full pixel-border-pink p-6 bg-[#ff00ff]/5 flex flex-col items-center justify-center mb-6"
+                    class_name="w-full pixel-border-pink p-6 bg-[#1a1a2e]/40 backdrop-blur-sm flex flex-col items-center justify-center mb-6"
                 )
             ),
 
             # Footer
             rx.el.div(
                 rx.text("💾 GAME SAVED AUTOMATICALLY | PRESS START TO CONTINUE 💾", class_name="text-[10px] text-gray-400 tracking-widest"),
-                class_name="w-full pixel-border-purple p-3 text-center bg-[#bd00ff]/5"
+                class_name="w-full pixel-border-purple p-3 text-center bg-[#1a1a2e]/40 backdrop-blur-sm"
             ),
 
             class_name="max-w-2xl mx-auto w-full"
         ),
-        class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono"
+        class_name="min-h-screen retro-bg p-4 md:p-8 font-mono"
     )

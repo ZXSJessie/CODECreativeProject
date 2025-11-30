@@ -57,11 +57,11 @@ def location_card(location: Location) -> rx.Component:
     # Use a dynamic border color based on recommendation
     # We define the styles as dictionaries and switch between them
     style_recommended = {
-        "backgroundColor": "rgba(255, 215, 0, 0.05)",
+        "backgroundColor": "rgba(255, 215, 0, 0.1)",
         "boxShadow": "0 0 15px rgba(255, 215, 0, 0.1)",
     }
     style_normal = {
-        "backgroundColor": "#1a1a2e",
+        "backgroundColor": "rgba(26, 26, 46, 0.4)",
         "boxShadow": "none",
     }
 
@@ -140,8 +140,8 @@ def location_card(location: Location) -> rx.Component:
         
         class_name=rx.cond(
             is_recommended,
-            "w-full p-4 md:p-6 pixel-border-yellow flex flex-col h-full transition-all duration-300 relative mt-2",
-            "w-full p-4 md:p-6 pixel-border flex flex-col h-full transition-all duration-300 relative mt-2"
+            "w-full p-4 md:p-6 pixel-border-yellow flex flex-col h-full transition-all duration-300 relative mt-2 backdrop-blur-sm",
+            "w-full p-4 md:p-6 pixel-border flex flex-col h-full transition-all duration-300 relative mt-2 backdrop-blur-sm"
         ),
         style=rx.cond(is_recommended, style_recommended, style_normal)
     )
@@ -151,7 +151,7 @@ def stat_box(value: rx.Var, label: str, color: str, border_class: str) -> rx.Com
     return rx.el.div(
         rx.text(value, class_name=f"text-xl font-bold text-[{color}] mb-1"),
         rx.text(label, class_name="text-[10px] text-gray-400 uppercase tracking-wider"),
-        class_name=f"flex flex-col items-center justify-center p-4 {border_class} bg-[{color}]/5"
+        class_name=f"flex flex-col items-center justify-center p-4 {border_class} bg-[#1a1a2e]/40 backdrop-blur-sm"
     )
 
 
@@ -175,7 +175,7 @@ def locations_page() -> rx.Component:
                     class_name="flex items-center"
                 ),
                 rx.icon("map-pin", class_name="text-[#bd00ff] w-6 h-6"),
-                class_name="w-full pixel-border p-4 flex justify-between items-center bg-[#00ff9f]/5 mb-6"
+                class_name="w-full pixel-border p-4 flex justify-between items-center bg-[#1a1a2e]/40 backdrop-blur-sm mb-6"
             ),
 
             # Stats Bar
@@ -199,10 +199,10 @@ def locations_page() -> rx.Component:
             # Tip Footer
             rx.el.div(
                 rx.text("[TIP: Click on location to start quest and rate your experience]", class_name="text-[10px] text-gray-400 tracking-widest font-mono"),
-                class_name="w-full pixel-border-gray p-3 mt-8 text-center bg-gray-900/50"
+                class_name="w-full pixel-border-gray p-3 mt-8 text-center bg-[#1a1a2e]/40 backdrop-blur-sm"
             ),
 
             class_name="max-w-6xl mx-auto w-full flex flex-col"
         ),
-        class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono"
+        class_name="min-h-screen retro-bg p-4 md:p-8 font-mono"
     )

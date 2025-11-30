@@ -30,9 +30,9 @@ def index() -> rx.Component:
                 ),
                 class_name="w-full max-w-4xl mx-auto p-4 md:p-8",
             ),
-            class_name="min-h-screen bg-[#0a0a0f] text-white flex flex-col items-center",
+            class_name="min-h-screen retro-bg text-white flex flex-col items-center",
         ),
-        class_name="font-['Press_Start_2P'] bg-[#0a0a0f]",
+        class_name="font-['Press_Start_2P'] retro-bg",
     )
 
 

@@ -29,7 +29,7 @@ def home_page() -> rx.Component:
                 on_click=lambda: QuizState.set_page("quiz"),
                 class_name="text-[#00ff9f] hover:text-white hover:bg-[#00ff9f]/20 transition-colors duration-300 text-sm md:text-base font-bold py-2 px-4 animate-pulse",
             ),
-            class_name="w-full p-8 md:p-12 pixel-border bg-[#0a0a0f] flex flex-col items-center justify-center mb-6 relative overflow-hidden",
+            class_name="w-full p-8 md:p-12 pixel-border bg-[#1a1a2e]/40 backdrop-blur-sm flex flex-col items-center justify-center mb-6 relative overflow-hidden",
         ),
         
         # --- WARNING BOX ---
@@ -39,7 +39,7 @@ def home_page() -> rx.Component:
                 "WARNING: Nap levels critically low. Seek immediate horizontal rest.",
                 class_name="text-gray-300 text-xs md:text-sm font-mono",
             ),
-            class_name="w-full p-3 pixel-border-magenta bg-[#0a0a0f]/50 flex items-center justify-center mb-6",
+            class_name="w-full p-3 pixel-border-magenta bg-[#1a1a2e]/40 backdrop-blur-sm flex items-center justify-center mb-6",
         ),
 
         # --- MAIN GRID ---
@@ -60,7 +60,7 @@ def home_page() -> rx.Component:
                     on_click=lambda: QuizState.set_page("quiz"),
                     class_name="text-[#ff00ff] hover:text-white font-bold text-sm flex items-center gap-2",
                 ),
-                class_name="pixel-border p-6 flex flex-col items-center justify-center bg-[#0a0a0f] hover:bg-[#00ff9f]/5 transition-colors cursor-pointer",
+                class_name="pixel-border p-6 flex flex-col items-center justify-center bg-[#1a1a2e]/40 backdrop-blur-sm hover:bg-[#00ff9f]/5 transition-colors cursor-pointer",
                 on_click=lambda: QuizState.set_page("quiz"),
             ),
             # EXPLORE MAP
@@ -79,7 +79,7 @@ def home_page() -> rx.Component:
                     on_click=lambda: QuizState.set_page("locations"),
                     class_name="text-[#00ff9f] hover:text-white font-bold text-sm flex items-center gap-2",
                 ),
-                class_name="pixel-border-cyan p-6 flex flex-col items-center justify-center bg-[#0a0a0f] hover:bg-[#00d4ff]/5 transition-colors cursor-pointer",
+                class_name="pixel-border-cyan p-6 flex flex-col items-center justify-center bg-[#1a1a2e]/40 backdrop-blur-sm hover:bg-[#00d4ff]/5 transition-colors cursor-pointer",
                 on_click=lambda: QuizState.set_page("locations"),
             ),
             class_name="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mb-6",
@@ -90,12 +90,12 @@ def home_page() -> rx.Component:
             rx.el.button(
                 rx.el.span("🏆 ACHIEVEMENTS"),
                 on_click=lambda: QuizState.set_page("achievements"), 
-                class_name="pixel-border-yellow text-[#ffd700] bg-[#0a0a0f] px-6 py-3 text-sm font-bold hover:bg-[#ffd700]/10 transition-colors w-full md:w-auto text-center",
+                class_name="pixel-border-yellow text-[#ffd700] bg-[#1a1a2e]/40 backdrop-blur-sm px-6 py-3 text-sm font-bold hover:bg-[#ffd700]/10 transition-colors w-full md:w-auto text-center",
             ),
             rx.el.button(
                 rx.el.span("👤 PROFILE"),
                 on_click=lambda: QuizState.set_page("profile"),
-                class_name="pixel-border-magenta text-[#ff00ff] bg-[#0a0a0f] px-6 py-3 text-sm font-bold hover:bg-[#ff00ff]/10 transition-colors w-full md:w-auto text-center",
+                class_name="pixel-border-magenta text-[#ff00ff] bg-[#1a1a2e]/40 backdrop-blur-sm px-6 py-3 text-sm font-bold hover:bg-[#ff00ff]/10 transition-colors w-full md:w-auto text-center",
             ),
             class_name="flex flex-col md:flex-row gap-4 justify-center w-full mb-8",
         ),
@@ -106,7 +106,7 @@ def home_page() -> rx.Component:
                 "[!] PRO TIP: Scan QR codes IRL to speedrun location ratings + unlock secret boss achievements!",
                 class_name="text-[#ff00ff] text-xs md:text-sm text-center font-bold",
             ),
-            class_name="w-full p-4 border-2 border-[#ff00ff] border-dashed bg-[#ff00ff]/5 mb-8",
+            class_name="w-full p-4 border-2 border-[#ff00ff] border-dashed bg-[#1a1a2e]/40 backdrop-blur-sm mb-8",
         ),
 
         # --- COPYRIGHT ---

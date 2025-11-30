@@ -65,9 +65,9 @@ def progress_bar() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             style={"width": QuizState.progress_percent},
-            class_name="h-full bg-gradient-to-r from-[#00ff9f] to-[#bd00ff] transition-all duration-500",
+            class_name="h-full bg-gradient-to-r from-[#00ff9f] to-[#bd00ff] border-r-4 border-black transition-all duration-500",
         ),
-        class_name="w-full h-2 bg-[#1a1a2e] border-b-4 border-gray-800 relative overflow-hidden mb-8",
+        class_name="w-full h-6 bg-black/40 border-2 border-gray-700 relative overflow-hidden mb-6",
     )
 
 
@@ -80,12 +80,12 @@ def quiz_page() -> rx.Component:
                     "Calculating your sleep persona...",
                     class_name="text-2xl text-center text-[#00ff9f] font-mono animate-pulse",
                 ),
-                class_name="flex items-center justify-center h-screen bg-[#050510]",
+                class_name="flex items-center justify-center h-screen retro-bg",
             ),
             rx.el.div(
                 # Header
                 rx.el.div(
-                    rx.el.h1("CHARACTER CREATION", class_name="text-xl font-bold text-[#00ff9f] tracking-widest text-shadow-neon-green text-center mb-2"),
+                    rx.el.h1("CHARACTER CREATION", class_name="text-xl font-bold text-[#00ff9f] tracking-widest text-shadow-neon text-center mb-2"),
                     rx.el.div(
                         rx.text("STAGE ", class_name="text-xs text-[#bd00ff] font-mono"),
                         rx.text(QuizState.current_question_index + 1, class_name="text-xs text-[#bd00ff] font-mono"),
@@ -100,14 +100,14 @@ def quiz_page() -> rx.Component:
                             lambda _, i: rx.el.div(
                                 class_name=rx.cond(
                                     i <= QuizState.current_question_index,
-                                    "w-2 h-2 bg-[#00ff9f] mx-0.5",
-                                    "w-2 h-2 bg-[#1a1a2e] border border-gray-700 mx-0.5"
+                                    "w-3 h-3 bg-[#00ff9f] mx-1 border border-black",
+                                    "w-3 h-3 bg-[#1a1a2e] border border-gray-700 mx-1"
                                 )
                             )
                         ),
-                        class_name="flex justify-center mb-4"
+                        class_name="flex justify-center mb-2"
                     ),
-                    class_name="w-full pixel-border p-4 bg-[#00ff9f]/5 mb-0 max-w-2xl mx-auto"
+                    class_name="w-full pixel-border p-4 mb-0 max-w-3xl mx-auto"
                 ),
                 
                 progress_bar(),
@@ -116,10 +116,10 @@ def quiz_page() -> rx.Component:
                     quiz_question(
                         QuizState.current_question, QuizState.current_question_index
                     ),
-                    class_name="w-full max-w-4xl mx-auto p-4 pixel-border-purple bg-[#1a1a2e]/50 min-h-[400px] flex flex-col justify-center",
+                    class_name="w-full max-w-3xl mx-auto p-6 pixel-border-purple min-h-[400px] flex flex-col justify-center",
                 ),
-                class_name="w-full max-w-4xl mx-auto",
+                class_name="w-full max-w-3xl mx-auto",
             ),
         ),
-        class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono flex flex-col items-center justify-center",
+        class_name="min-h-screen retro-bg p-4 md:p-8 font-mono flex flex-col items-center justify-center",
     )

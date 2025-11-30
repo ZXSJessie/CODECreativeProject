@@ -75,7 +75,7 @@ def visited_location_card(location: Location) -> rx.Component:
             class_name="mt-auto w-full"
         ),
         
-        class_name="w-full p-4 md:p-6 bg-[#1a1a2e] border-4 border-[#00ff9f]/30 flex flex-col h-full hover:border-[#00ff9f] transition-all duration-300",
+        class_name="w-full p-4 md:p-6 bg-[#1a1a2e]/40 backdrop-blur-sm border-4 border-[#00ff9f]/30 flex flex-col h-full hover:border-[#00ff9f] transition-all duration-300",
     )
 
 
@@ -98,7 +98,7 @@ def visited_locations_page() -> rx.Component:
                     class_name="flex items-center"
                 ),
                 rx.icon("map-pin", class_name="text-[#00ff9f] w-6 h-6"),
-                class_name="w-full border-4 border-[#00ff9f] p-4 flex justify-between items-center bg-[#00ff9f]/5 mb-6"
+                class_name="w-full border-4 border-[#00ff9f] p-4 flex justify-between items-center bg-[#1a1a2e]/40 backdrop-blur-sm mb-6"
             ),
 
             # Stats Bar
@@ -106,12 +106,12 @@ def visited_locations_page() -> rx.Component:
                 rx.el.div(
                     rx.text(LocationState.explored_count, class_name="text-2xl font-bold text-[#bd00ff] mb-1"),
                     rx.text("TOTAL VISITED", class_name="text-[10px] text-gray-400 uppercase tracking-wider"),
-                    class_name="flex flex-col items-center justify-center p-4 border border-[#bd00ff] bg-[#bd00ff]/5"
+                    class_name="flex flex-col items-center justify-center p-4 border border-[#bd00ff] bg-[#1a1a2e]/40 backdrop-blur-sm"
                 ),
                 rx.el.div(
                     rx.text(f"{LocationState.explored_count}/{LocationState.locations.length()}", class_name="text-2xl font-bold text-[#00ff9f] mb-1"),
                     rx.text("PROGRESS", class_name="text-[10px] text-gray-400 uppercase tracking-wider"),
-                    class_name="flex flex-col items-center justify-center p-4 border border-[#00ff9f] bg-[#00ff9f]/5"
+                    class_name="flex flex-col items-center justify-center p-4 border border-[#00ff9f] bg-[#1a1a2e]/40 backdrop-blur-sm"
                 ),
                 class_name="grid grid-cols-2 gap-4 w-full mb-8"
             ),
@@ -142,17 +142,17 @@ def visited_locations_page() -> rx.Component:
                         on_click=lambda: QuizState.set_page("locations"),
                         class_name="border-2 border-[#00ff9f] text-[#00ff9f] px-6 py-3 hover:bg-[#00ff9f] hover:text-black transition-colors font-bold tracking-wider flex items-center"
                     ),
-                    class_name="w-full border-2 border-gray-800 p-12 flex flex-col items-center justify-center bg-[#0a0a0f]"
+                    class_name="w-full border-2 border-gray-800 p-12 flex flex-col items-center justify-center bg-[#1a1a2e]/40 backdrop-blur-sm"
                 )
             ),
             
             # Tip Footer
             rx.el.div(
                 rx.text("[TIP: Check in at more locations to unlock collection achievements]", class_name="text-[10px] text-gray-400 tracking-widest font-mono"),
-                class_name="w-full border border-gray-700 p-3 mt-8 text-center bg-gray-900/50"
+                class_name="w-full border border-gray-700 p-3 mt-8 text-center bg-[#1a1a2e]/40 backdrop-blur-sm"
             ),
 
             class_name="max-w-4xl mx-auto w-full flex flex-col"
         ),
-        class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono"
+        class_name="min-h-screen retro-bg p-4 md:p-8 font-mono"
     )

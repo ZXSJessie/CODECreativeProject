@@ -45,8 +45,8 @@ def achievement_card(achievement_id: str, achievement_data: dict, unlocked: bool
         ),
         class_name=rx.cond(
             unlocked,
-            "flex items-start p-4 bg-[#0f172a] border border-[#00ff9f]/30 hover:border-[#00ff9f] transition-all duration-300",
-            "flex items-start p-4 bg-[#0f172a]/50 border border-gray-800 hover:border-gray-700 transition-all duration-300",
+            "flex items-start p-4 bg-[#1a1a2e]/40 backdrop-blur-sm border border-[#00ff9f]/30 hover:border-[#00ff9f] transition-all duration-300",
+            "flex items-start p-4 bg-[#1a1a2e]/40 backdrop-blur-sm border border-gray-800 hover:border-gray-700 transition-all duration-300",
         ),
     )
 
@@ -74,7 +74,7 @@ def achievements_page() -> rx.Component:
                     class_name="flex items-center"
                 ),
                 rx.icon("trophy", class_name="text-[#ffd700] w-8 h-8"),
-                class_name="w-full border-2 border-[#00ff9f] p-4 flex justify-between items-center bg-[#00ff9f]/5 mb-6"
+                class_name="w-full border-2 border-[#00ff9f] p-4 flex justify-between items-center bg-[#1a1a2e]/40 backdrop-blur-sm mb-6"
             ),
 
             # Progress Section (Purple)
@@ -91,7 +91,7 @@ def achievements_page() -> rx.Component:
                     ),
                     class_name="w-full h-4 border border-[#bd00ff] bg-[#bd00ff]/10 p-0.5"
                 ),
-                class_name="w-full border border-[#bd00ff] p-4 bg-[#bd00ff]/5 mb-8"
+                class_name="w-full border border-[#bd00ff] p-4 bg-[#1a1a2e]/40 backdrop-blur-sm mb-8"
             ),
 
             # Grid
@@ -110,10 +110,10 @@ def achievements_page() -> rx.Component:
             # Footer
             rx.el.div(
                 rx.text("Keep grinding! ", UserState.remaining_achievements_count, " achievements remaining."),
-                class_name="w-full border border-[#bd00ff] p-3 mt-8 text-center text-gray-300 text-sm font-mono bg-[#bd00ff]/5"
+                class_name="w-full border border-[#bd00ff] p-3 mt-8 text-center text-gray-300 text-sm font-mono bg-[#1a1a2e]/40 backdrop-blur-sm"
             ),
 
             class_name="max-w-4xl mx-auto w-full"
         ),
-        class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono"
+        class_name="min-h-screen retro-bg p-4 md:p-8 font-mono"
     )
