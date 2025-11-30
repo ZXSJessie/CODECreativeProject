@@ -10,7 +10,9 @@
 
 *   **Sleep Personality Quiz**: Find out what kind of sleeper you are and get personalized recommendations.
   ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/e7128e9c1563cd2335221bd9e12d1866cfe92097/quiz.png)
+
   ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/d07321df47ea705a640f7c53079bb22be224fe09/quiz2_1.png)
+  
   ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/d07321df47ea705a640f7c53079bb22be224fe09/quiz3.png)
   
   
@@ -21,6 +23,7 @@
   
 *   **Rating System**: Rate locations based on your experience.
   ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/d07321df47ea705a640f7c53079bb22be224fe09/rate.png)
+
 
 *   **Achievements**: Unlock badges and achievements for exploring different spots and leveling up.
 
