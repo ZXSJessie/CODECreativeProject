@@ -62,7 +62,7 @@ def location_detail_page() -> rx.Component:
                     rx.el.button(
                         rx.icon("arrow-left", size=20),
                         on_click=lambda: QuizState.set_page("locations"),
-                        class_name="p-2 border-2 border-[#00ff9f] text-[#00ff9f] hover:bg-[#00ff9f] hover:text-black transition-colors"
+                        class_name="p-2 pixel-border text-[#00ff9f] hover:bg-[#00ff9f] hover:text-black transition-colors"
                     ),
                     rx.el.div(
                         rx.icon(
@@ -103,7 +103,7 @@ def location_detail_page() -> rx.Component:
                                                     "top": LocationState.selected_location_coords["y"]
                                                 }
                                             ),
-                                            class_name="relative w-64 h-48 bg-[#0a0a0f] border-2 border-[#00ff9f] overflow-hidden rounded-lg shadow-2xl"
+                                            class_name="relative w-[600px] h-[450px] bg-[#0a0a0f] pixel-border overflow-hidden rounded-lg shadow-2xl"
                                         ),
                                         class_name="absolute z-50 mt-2 transform -translate-x-1/4 pointer-events-none"
                                     ),
@@ -124,7 +124,7 @@ def location_detail_page() -> rx.Component:
                         LocationState.selected_location["description"],
                         class_name="text-xs md:text-sm text-gray-400 leading-relaxed font-mono"
                     ),
-                    class_name="w-full border border-[#bd00ff] bg-[#1a1a2e] p-4 md:p-6 mb-6"
+                    class_name="w-full pixel-border-purple bg-[#1a1a2e] p-4 md:p-6 mb-6"
                 ),
 
                 # 3D Model Preview
@@ -135,10 +135,10 @@ def location_detail_page() -> rx.Component:
                     ),
                     sketchfab_model(
                         model_id=LocationState.selected_location["model_id"],
-                        height="300px",
+                        height="450px",
                         title=LocationState.selected_location["name"]
                     ),
-                    class_name="w-full border border-[#00d4ff] p-4 bg-[#0a0a0f]/50 mb-6"
+                    class_name="w-full pixel-border-cyan p-4 bg-[#0a0a0f]/50 mb-6"
                 ),
 
                 # Stats Grid (Comfort, Noise, Temp, Traffic)
@@ -163,7 +163,7 @@ def location_detail_page() -> rx.Component:
                             ),
                             class_name="flex"
                         ),
-                        class_name="border border-[#00ff9f] bg-[#00ff9f]/5 p-4"
+                        class_name="pixel-border bg-[#00ff9f]/5 p-4"
                     ),
                     # Noise
                     rx.el.div(
@@ -185,7 +185,7 @@ def location_detail_page() -> rx.Component:
                             ),
                             class_name="flex"
                         ),
-                        class_name="border border-[#bd00ff] bg-[#bd00ff]/5 p-4"
+                        class_name="pixel-border-purple bg-[#bd00ff]/5 p-4"
                     ),
                     # Accessibility
                     rx.el.div(
@@ -207,7 +207,7 @@ def location_detail_page() -> rx.Component:
                             ),
                             class_name="flex"
                         ),
-                        class_name="border border-[#ff0055] bg-[#ff0055]/5 p-4"
+                        class_name="pixel-border-pink bg-[#ff0055]/5 p-4"
                     ),
                     # Vibe Check
                     rx.el.div(
@@ -229,7 +229,7 @@ def location_detail_page() -> rx.Component:
                             ),
                             class_name="flex"
                         ),
-                        class_name="border border-[#ffd700] bg-[#ffd700]/5 p-4"
+                        class_name="pixel-border-yellow bg-[#ffd700]/5 p-4"
                     ),
                     # Danger
                     rx.el.div(
@@ -251,7 +251,7 @@ def location_detail_page() -> rx.Component:
                             ),
                             class_name="flex"
                         ),
-                        class_name="border border-[#00d4ff] bg-[#00d4ff]/5 p-4"
+                        class_name="pixel-border-cyan bg-[#00d4ff]/5 p-4"
                     ),
                     class_name="grid grid-cols-2 gap-4 mb-6"
                 ),
@@ -268,7 +268,7 @@ def location_detail_page() -> rx.Component:
                     rating_bar_stat("ACCESSIBILITY", "accessibility", "map-pin", "#ff0055"),
                     rating_bar_stat("VIBE CHECK", "vibe_check", "sparkles", "#ffd700"),
                     rating_bar_stat("DANGER", "danger", "shield-alert", "#00d4ff"),
-                    class_name="w-full border-2 border-[#00ff9f] bg-[#0a0a0f] p-6 mb-6"
+                    class_name="w-full pixel-border bg-[#0a0a0f] p-6 mb-6"
                 ),
 
                 # First Time Rating Bonus
@@ -278,7 +278,7 @@ def location_detail_page() -> rx.Component:
                         rx.icon("triangle-alert", size=16, class_name="mr-2 text-[#ffd700]"),
                         rx.text("▲ FIRST TIME HERE? Rate this location to unlock XP! ▲", class_name="text-xs text-[#ffd700] font-bold tracking-wider"),
                         rx.icon("triangle-alert", size=16, class_name="ml-2 text-[#ffd700]"),
-                        class_name="w-full border border-[#ffd700] bg-[#ffd700]/10 p-3 flex items-center justify-center mb-6"
+                        class_name="w-full pixel-border-yellow bg-[#ffd700]/10 p-3 flex items-center justify-center mb-6"
                     ),
                     rx.el.div()
                 ),
@@ -315,17 +315,17 @@ def location_detail_page() -> rx.Component:
                                     rx.icon("map-pin", size=16, class_name="mr-2"),
                                     "CHECK IN NOW",
                                     on_click=lambda: LocationState.check_in_location(LocationState.selected_location["id"]),
-                                    class_name="w-full border-2 border-[#bd00ff] text-[#bd00ff] text-sm py-3 hover:bg-[#bd00ff] hover:text-black transition-colors font-bold tracking-wider flex items-center justify-center"
+                                    class_name="w-full pixel-border-purple text-[#bd00ff] text-sm py-3 hover:bg-[#bd00ff] hover:text-black transition-colors font-bold tracking-wider flex items-center justify-center"
                                 ),
                                 class_name="flex flex-col items-center justify-center p-6"
                             )
                         ),
-                        class_name="w-full border-2 border-[#bd00ff] bg-[#bd00ff]/5 p-4"
+                        class_name="w-full pixel-border-purple bg-[#bd00ff]/5 p-4"
                     ),
                     class_name="w-full mb-6",
                 ),
 
-                class_name="max-w-3xl mx-auto w-full flex flex-col"
+                class_name="max-w-5xl mx-auto w-full flex flex-col"
             ),
             class_name="min-h-screen bg-[#050510] p-4 md:p-8 font-mono animate-fade-in",
         ),

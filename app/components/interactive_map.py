@@ -258,7 +258,7 @@ def floor_location_icon(location: rx.Var[dict]) -> rx.Component:
                         location.location,
                         class_name="text-[10px] text-gray-300"
                     ),
-                    class_name="bg-[#1a1a2e] border-2 border-[#00ff9f] p-2 rounded shadow-lg"
+                    class_name="bg-[#1a1a2e] border-4 border-[#00ff9f] p-2 rounded shadow-lg"
                 ),
                 class_name="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 whitespace-nowrap z-50"
             ),
@@ -313,7 +313,7 @@ def outdoor_location_icon(location_id: str, location_name: str, x: str, y: str, 
                         "Click to view details",
                         class_name="text-xs text-gray-300"
                     ),
-                    class_name="bg-[#1a1a2e] border-2 border-[#00ff9f] p-3 rounded shadow-xl"
+                    class_name="bg-[#1a1a2e] pixel-border p-3 rounded shadow-xl"
                 ),
                 class_name="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 whitespace-nowrap z-50"
             ),
@@ -368,7 +368,7 @@ def building_icon_on_main_map(building: str, x: str, y: str) -> rx.Component:
                         "Click to explore",
                         class_name="text-xs text-gray-300"
                     ),
-                    class_name="bg-[#1a1a2e] border-2 border-[#00ff9f] p-3 rounded shadow-xl"
+                    class_name="bg-[#1a1a2e] pixel-border p-3 rounded shadow-xl"
                 ),
                 class_name="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 whitespace-nowrap z-50"
             ),
@@ -413,7 +413,7 @@ def interactive_campus_map() -> rx.Component:
                     # Campus map header
                     rx.el.h3(
                         "[ CAMPUS MAP ]",
-                        class_name="text-[#00ff9f] font-bold mb-3 text-center tracking-widest text-sm"
+                        class_name="text-[#00ff9f] font-bold mb-3 mt-4 text-center tracking-widest text-xl"
                     )
                 ),
                 class_name="w-full"
@@ -481,7 +481,7 @@ def interactive_campus_map() -> rx.Component:
                             ),
                             rx.el.div(class_name="w-12 h-12")
                         ),
-                        class_name="flex flex-col items-center justify-center gap-2 px-4 absolute right-4 top-1/2 transform -translate-y-1/2 z-50 bg-[#0a0a0f]/90 border-2 border-[#00ff9f] rounded p-2"
+                        class_name="flex flex-col items-center justify-center gap-2 px-4 absolute right-4 top-1/2 transform -translate-y-1/2 z-50 bg-[#0a0a0f]/90 pixel-border rounded p-2"
                     ),
                     rx.fragment()
                 ),
@@ -489,7 +489,7 @@ def interactive_campus_map() -> rx.Component:
                 class_name="relative"
             ),
             
-            class_name="w-full border-2 border-[#00ff9f] bg-[#0a0a0f] p-4"
+            class_name="w-full pixel-border bg-[#0a0a0f] p-1"
         ),
         
         class_name="w-full mb-8"

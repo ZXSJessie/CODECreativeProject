@@ -70,12 +70,12 @@ def visited_location_card(location: Location) -> rx.Component:
             rx.el.button(
                 "VIEW DETAILS",
                 on_click=lambda: LocationState.select_location(location["id"]),
-                class_name="w-full border border-[#00ff9f] text-[#00ff9f] text-xs py-2 hover:bg-[#00ff9f] hover:text-black transition-colors font-bold tracking-wider"
+                class_name="w-full border-4 border-[#00ff9f] text-[#00ff9f] text-xs py-2 hover:bg-[#00ff9f] hover:text-black transition-colors font-bold tracking-wider"
             ),
             class_name="mt-auto w-full"
         ),
         
-        class_name="w-full p-4 md:p-6 bg-[#1a1a2e] border border-[#00ff9f]/30 flex flex-col h-full hover:border-[#00ff9f] transition-all duration-300",
+        class_name="w-full p-4 md:p-6 bg-[#1a1a2e] border-4 border-[#00ff9f]/30 flex flex-col h-full hover:border-[#00ff9f] transition-all duration-300",
     )
 
 
@@ -88,7 +88,7 @@ def visited_locations_page() -> rx.Component:
                     rx.el.button(
                         rx.icon("arrow-left", size=16),
                         on_click=lambda: QuizState.set_page("profile"),
-                        class_name="p-1 border border-[#bd00ff] text-[#bd00ff] hover:bg-[#bd00ff] hover:text-black transition-colors mr-4",
+                        class_name="p-1 border-4 border-[#bd00ff] text-[#bd00ff] hover:bg-[#bd00ff] hover:text-black transition-colors mr-4",
                     ),
                     rx.el.div(
                         rx.el.h1("VISITED LOCATIONS", class_name="text-xl font-bold text-[#bd00ff] tracking-widest text-shadow-neon-purple"),
@@ -98,7 +98,7 @@ def visited_locations_page() -> rx.Component:
                     class_name="flex items-center"
                 ),
                 rx.icon("map-pin", class_name="text-[#00ff9f] w-6 h-6"),
-                class_name="w-full border-2 border-[#bd00ff] p-4 flex justify-between items-center bg-[#bd00ff]/5 mb-6"
+                class_name="w-full border-4 border-[#00ff9f] p-4 flex justify-between items-center bg-[#00ff9f]/5 mb-6"
             ),
 
             # Stats Bar
