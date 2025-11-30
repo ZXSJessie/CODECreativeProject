@@ -95,21 +95,7 @@ Poly-U-Nap/
 └── README.md               # Project documentation
 ```
 
-## 🗺️ How to Edit Map Locations
 
-To adjust the position of icons on the interactive map:
-
-1.  Open `app/components/interactive_map.py`.
-2.  Locate the `current_floor_locations` function.
-3.  Update the `x` (horizontal) and `y` (vertical) percentage values for the specific location dictionary.
-
-```python
-{
-    "id": "location-id",
-    "x": "50%",  # 0% is Left, 100% is Right
-    "y": "50%"   # 0% is Top, 100% is Bottom
-}
-```
 
 ## 📄 License
 
