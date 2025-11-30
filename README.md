@@ -9,14 +9,18 @@
 ## 🌟 Features
 
 *   **Sleep Personality Quiz**: Find out what kind of sleeper you are and get personalized recommendations.
-*   ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/e7128e9c1563cd2335221bd9e12d1866cfe92097/quiz.png)
-*   ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/d07321df47ea705a640f7c53079bb22be224fe09/quiz2_1.png)
-*   ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/d07321df47ea705a640f7c53079bb22be224fe09/quiz3.png)
+  ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/e7128e9c1563cd2335221bd9e12d1866cfe92097/quiz.png)
+  ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/d07321df47ea705a640f7c53079bb22be224fe09/quiz2_1.png)
+  ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/d07321df47ea705a640f7c53079bb22be224fe09/quiz3.png)
+  
 *   **Nap Spot Discovery**: Detailed information about each nap spot, including comfort, quietness, and "danger" levels.
-*   ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/845ed29ec23dedd2489beac6c8689f2e85b62682/levels.png)
+  ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/845ed29ec23dedd2489beac6c8689f2e85b62682/levels.png)
+
 *   **Check-in System**: "Check in" to locations to earn XP and level up your profile.
+ 
 *   **Rating System**: Rate locations based on your experience.
-*   ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/d07321df47ea705a640f7c53079bb22be224fe09/rate.png)
+  ![image alt](https://github.com/ZXSJessie/Poly-U-Nap/blob/d07321df47ea705a640f7c53079bb22be224fe09/rate.png)
+
 *   **Achievements**: Unlock badges and achievements for exploring different spots and leveling up.
 *   **Profile & Stats**: Track your visited locations, favorite spots, and sleeper rank.
 *   **Interactive Campus Map**: Navigate through different buildings (Library, JCIT) and floors to find nap spots.
